@@ -1,4 +1,5 @@
-import { Navbar } from "../components";
+import { Navbar, Sidebar } from "../components";
+
 import { Outlet } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
@@ -6,6 +7,7 @@ export const Layout = () => {
   return (
     <div className="w-screen h-screen relative">
       <Navbar />
+      <Sidebar />
       <div
         className={twMerge(
           "w-full h-full",
