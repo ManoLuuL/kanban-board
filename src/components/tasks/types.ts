@@ -4,7 +4,7 @@ type TagsParams = {
   text: string;
 };
 type TaskProps = {
-  id: string;
+  index: number;
   title: string;
   description: string;
   priority: string;
@@ -14,8 +14,4 @@ type TaskProps = {
   tags: TagsParams[];
 };
 
-export type TasksProps = {
-  task: TaskProps;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  provided: any;
-};
+export type TasksProps = TaskProps;
