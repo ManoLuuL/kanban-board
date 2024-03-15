@@ -9,7 +9,8 @@ export const Board: Columns = {
       {
         id: uuidv4(),
         title: "Admin Panel Front-end",
-        description: "Lorem ipsum dolor sit amet ..",
+        description:
+          "Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..",
         priority: "medium",
         deadline: 50,
 
