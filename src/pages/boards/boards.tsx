@@ -1,14 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Columns, onDragEnd } from "../../globals";
+import { AddTaskModal, Task } from "../../components";
+import { Columns, TaskT, onDragEnd } from "../../globals";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import { Board } from "../../data/board";
-import { Task } from "../../components";
+import { IoAddOutline } from "react-icons/io5";
 import { useState } from "react";
 
 export const Boards = () => {
   const [columns, setColumns] = useState<Columns>(Board);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedColumn, setSelectedColumn] = useState("");
+
+  const handleOpen = (columnId: string) => {
+    setSelectedColumn(columnId);
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleAdd = (taskData: TaskT) => {
+    const newBoard = { ...columns };
+    newBoard[selectedColumn].items.push(taskData);
+  };
 
   return (
     <>
@@ -45,10 +62,25 @@ export const Boards = () => {
                   </div>
                 )}
               </Droppable>
+              <div
+                onClick={() => handleOpen(columnId)}
+                className="flex cursor-pointer items-center justify-center gap-1 py-[10px] md:w-[90%] w-full opacity-90 bg-white rounded-lg shadow-sm text-[#555] font-medium text-[15px]"
+              >
+                <IoAddOutline color={"#555"} />
+                Add Task
+              </div>
             </div>
           ))}
         </div>
       </DragDropContext>
+
+      {isOpen && (
+        <AddTaskModal
+          onClose={handleClose}
+          setOpen={setIsOpen}
+          handleAddTask={handleAdd}
+        />
+      )}
     </>
   );
 };
