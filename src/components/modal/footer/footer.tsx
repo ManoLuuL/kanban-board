@@ -30,7 +30,7 @@ export const ModalFooter = (props: InternalModalFooterProps) => {
         "w-full",
         "pt-2 mt-1 gap-2",
         "flex justify-end items-center",
-        "border-t border-solid border-surface-300/70",
+        "border-t border-solid border-gray-100/70",
         elementAttributes?.className
       )}
     >
@@ -38,9 +38,10 @@ export const ModalFooter = (props: InternalModalFooterProps) => {
         <Button
           id={"cancel_button"}
           disabled={isButtonDisabled}
-          variant={"destructive"}
+          variant={"outline"}
           onClick={handleClose}
           title="Cancelar"
+          className="bg-transparent text-gray-50"
         >
           Cancelar
         </Button>
@@ -48,10 +49,10 @@ export const ModalFooter = (props: InternalModalFooterProps) => {
       {hasConfirmFunction && (
         <Button
           id={"save_button"}
-          variant={"outline"}
+          variant={"default"}
           disabled={isButtonDisabled}
           type={saveButtonType}
-          className="px-7"
+          className="px-7 bg-cyan-500 hover:bg-cyan-600"
           onClick={handleClick}
         >
           {saveButtonText}

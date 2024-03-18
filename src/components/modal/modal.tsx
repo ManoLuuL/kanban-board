@@ -20,7 +20,6 @@ export const Modal = (props: ModalProps) => {
     title,
     hasForm,
     onConfirm,
-
     customFooter,
     customHeader,
     isAllButtonsDisabled,
@@ -28,7 +27,6 @@ export const Modal = (props: ModalProps) => {
     showHeader = true,
     hasPadding = true,
     allowCloseOnEscapeAndOutsideClick = true,
-
     size = "sm",
   } = props;
 
@@ -97,7 +95,7 @@ export const Modal = (props: ModalProps) => {
         className={twMerge(
           "h-full w-full",
           "top-0 left-0",
-          "bg-gray-100/80",
+          "bg-gray-900/80",
           "absolute",
           "z-10"
         )}
@@ -112,8 +110,7 @@ export const Modal = (props: ModalProps) => {
               "h-fit w-fit",
               "right-0 left-0 m-auto top-0 bottom-0",
               "fixed z-10 rounded-md overflow-y-auto",
-              "bg-gray-200",
-              "text-gray-800 ",
+              "bg-gray-950",
               "outline-none",
               "shadow-lg",
               isOpen

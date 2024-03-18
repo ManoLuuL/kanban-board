@@ -20,7 +20,7 @@ export const Navbar = () => {
       <div
         className={twMerge(
           "md:w-[50rem] w-32",
-          "bg-gray-100 rounded-lg",
+          "bg-gray-900 rounded-lg",
           "px-3 py-3 flex items-center gap-2"
         )}
       >
@@ -28,7 +28,7 @@ export const Navbar = () => {
         <input
           type="text"
           placeholder="Search"
-          className={twMerge("w-full", "bg-gray-100 outline-none", "text-base")}
+          className={twMerge("w-full", "bg-gray-900 outline-none", "text-base")}
         />
       </div>
       <div className="md:flex hidden items-center gap-4">

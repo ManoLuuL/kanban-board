@@ -1,17 +1,17 @@
-export type TaskT = {
+export type TaskProps = {
   id: string;
   title: string;
+  briefDescription: string;
   description: string;
   priority: string;
+  endTask?: Date;
   deadline: number;
-  image?: string;
-  alt?: string;
   tags: { title: string; bg: string; text: string }[];
 };
 
 type Column = {
   name: string;
-  items: TaskT[];
+  items: TaskProps[];
 };
 
 export type Columns = {

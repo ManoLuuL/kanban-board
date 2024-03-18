@@ -1,4 +1,4 @@
-import { TaskT } from "@/globals";
+import { TaskProps } from "@/globals";
 
 export type Tag = {
   title: string;
@@ -8,5 +8,18 @@ export type Tag = {
 
 export type AddTaskModalProps = {
   onClose: () => void;
-  handleAddTask: (taskData: TaskT) => void;
+  handleAddTask: (taskData: TaskProps) => void;
+};
+
+export type InitialValueDTO = {
+  id: string;
+  title: string;
+  briefDescription: string;
+  description: string;
+  priority: string;
+  deadline: number;
+  image: string;
+  alt: string;
+  endTask: Date | undefined;
+  tags: Tag[];
 };

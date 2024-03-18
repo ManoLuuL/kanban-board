@@ -9,12 +9,12 @@ export const Board: Columns = {
       {
         id: uuidv4(),
         title: "Admin Panel Front-end",
+        briefDescription: "Descripiton short",
         description:
           "Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..Lorem ipsum dolor sit amet ..",
         priority: "medium",
+        endTask: new Date(),
         deadline: 50,
-
-        alt: "task image",
         tags: [
           { title: "Test", ...getRandomColors() },
           { title: "Front", ...getRandomColors() },
@@ -23,8 +23,10 @@ export const Board: Columns = {
       {
         id: uuidv4(),
         title: "Admin Panel Back-end",
+        briefDescription: "Descripiton short",
         description: "Lorem ipsum dolor sit amet ..",
         priority: "low",
+        endTask: new Date(),
         deadline: 50,
         tags: [
           { title: "Test", ...getRandomColors() },
@@ -34,11 +36,12 @@ export const Board: Columns = {
     ],
   },
   pending: {
-    name: "Pending",
+    name: "Pendente",
     items: [
       {
         id: uuidv4(),
         title: "Admin Panel Back-end",
+        briefDescription: "Descripiton short",
         description: "Lorem ipsum dolor sit amet ..",
         priority: "high",
         deadline: 50,
@@ -50,11 +53,10 @@ export const Board: Columns = {
       {
         id: uuidv4(),
         title: "Admin Panel Front-end",
+        briefDescription: "Descripiton short",
         description: "Lorem ipsum dolor sit amet ..",
         priority: "low",
         deadline: 50,
-
-        alt: "task image",
         tags: [
           { title: "Test", ...getRandomColors() },
           { title: "Front", ...getRandomColors() },
@@ -68,11 +70,10 @@ export const Board: Columns = {
       {
         id: uuidv4(),
         title: "Admin Panel Front-end",
+        briefDescription: "Descripiton short",
         description: "Lorem ipsum dolor sit amet ..",
         priority: "medium",
         deadline: 50,
-
-        alt: "task image",
         tags: [
           { title: "Test", ...getRandomColors() },
           { title: "Front", ...getRandomColors() },
@@ -86,6 +87,7 @@ export const Board: Columns = {
       {
         id: uuidv4(),
         title: "Admin Panel Front-end",
+        briefDescription: "Descripiton short",
         description: "Lorem ipsum dolor sit amet ..",
         priority: "low",
         deadline: 50,
@@ -97,6 +99,7 @@ export const Board: Columns = {
       {
         id: uuidv4(),
         title: "Admin Panel Back-end",
+        briefDescription: "Descripiton short",
         description: "Lorem ipsum dolor sit amet ..",
         priority: "medium",
         deadline: 50,
@@ -113,11 +116,10 @@ export const Board: Columns = {
       {
         id: uuidv4(),
         title: "Admin Panel Front-end",
+        briefDescription: "Descripiton short",
         description: "Lorem ipsum dolor sit amet ..",
         priority: "high",
         deadline: 50,
-
-        alt: "task image",
         tags: [
           { title: "Test", ...getRandomColors() },
           { title: "Front", ...getRandomColors() },

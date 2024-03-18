@@ -1,7 +1,7 @@
-import { TaskT } from "@/globals";
+import { TaskProps } from "@/globals";
 
 export type EditTaskModalProps = {
   onClose: () => void;
-  task?: TaskT;
-  handleEditTask: (taskId: string, updatedTaskData: TaskT) => void;
+  task?: TaskProps;
+  handleEditTask(taskId: string, updatedTaskData: TaskProps): void;
 };

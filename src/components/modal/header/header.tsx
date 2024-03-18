@@ -39,7 +39,7 @@ export const ModalHeader = (props: InternalModalHeaderProps) => {
         <span
           className={twMerge(
             "select-none pointer-events-none",
-            "text-lg text-secondary-700 dark:text-light-300 font-[600]"
+            "text-lg text-gray-100 dark:text-light-300 font-semibold"
           )}
         >
           {title}
@@ -53,10 +53,13 @@ export const ModalHeader = (props: InternalModalHeaderProps) => {
           variant={"ghost"}
           disabled={isButtonDisabled}
           size="icon"
-          className={twMerge("h-6", "select-none")}
+          className={twMerge(
+            "h-6",
+            "select-none text-gray-50 hover:text-gray-700"
+          )}
           onMouseDown={preventFunctions}
         >
-          <IoCloseOutline size={20} className="text-black" />
+          <IoCloseOutline size={25} />
         </Button>
       )}
     </div>
