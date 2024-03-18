@@ -18,7 +18,7 @@ export const Task = (props: TaskProps) => {
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
-      className="w-full cursor-grab bg-[#fff] flex flex-col justify-between gap-3 items-start shadow-sm rounded-xl px-3 py-4"
+      className="bg-gray-500 px-3 py-4 gap-3 items-center flex flex-col justify-between text-left rounded-xl hover:ring-2 hover:ring-inset hover:ring-cyan-500 cursor-grab relative task"
     >
       {image && alt && (
         <img src={image} alt={alt} className="w-full h-[170px] rounded-lg" />
@@ -26,17 +26,15 @@ export const Task = (props: TaskProps) => {
 
       <div className="w-full flex items-start flex-col gap-2">
         <div className="text-center flex justify-center items-center">
-          <span className="pl-1 text-[15.5px] font-medium text-[#555]">
-            {title}
-          </span>
+          <span className="pl-1 text-lg font-medium text-gray-50">{title}</span>
         </div>
-        <span className="text-[13.5px] text-gray-500 inline-block max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis h-10">
+        <span className="text-xs text-gray-50 inline-block max-w-60 whitespace-nowrap overflow-hidden text-ellipsis h-10">
           {description}
         </span>
         <div className="flex gap-2">
           <span
             className={twMerge(
-              "px-[10px] py-[2px] text-[13px] font-medium rounded-md text-white",
+              "px-3 py-1 text-xs font-medium rounded-md text-white",
               priority === "high"
                 ? "bg-red-500"
                 : priority === "medium"
@@ -45,16 +43,16 @@ export const Task = (props: TaskProps) => {
             )}
           >
             {priority === "high"
-              ? "High"
+              ? "Alta"
               : priority === "medium"
-              ? "Medium"
-              : "Low"}
+              ? "Média"
+              : "Baixa"}
           </span>
           <div className="flex items-center gap-2">
             {tags.map((tag) => (
               <span
                 key={tag.title}
-                className="px-[10px] py-[2px] text-[13px] font-medium rounded-md"
+                className={twMerge("px-3 py-1 text-xs font-medium rounded-md")}
                 style={{ backgroundColor: tag.bg, color: tag.text }}
               >
                 {tag.title}
@@ -66,14 +64,22 @@ export const Task = (props: TaskProps) => {
       <div className="w-full border border-dashed"></div>
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center gap-1">
-          <IoTimeOutline color={"#666"} width="19px" height="19px" />
-          <span className="text-[13px] text-gray-700">{deadline} mins</span>
+          <IoTimeOutline color={"#ffffff"} className="h-5 w-5" />
+          <span className="text-xs text-gray-50">{deadline} mins</span>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant={"outline"} size={"sm"}>
-            <IoPencilOutline size={18} color="#111" />
+          <Button
+            variant={"default"}
+            size={"sm"}
+            className="bg-gray-700 hover:bg-gray-800"
+          >
+            <IoPencilOutline size={18} color="#ffff" />
           </Button>
-          <Button variant={"destructive"} size={"sm"}>
+          <Button
+            variant={"default"}
+            size={"sm"}
+            className="bg-red-500 hover:bg-red-600"
+          >
             <IoTrashOutline size={16} />
           </Button>
         </div>
