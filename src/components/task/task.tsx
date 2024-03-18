@@ -9,7 +9,7 @@ import { TaskProps } from "./types";
 import { twMerge } from "tailwind-merge";
 
 export const Task = (props: TaskProps) => {
-  const { task, provided } = props;
+  const { task, provided, onRemove, onEdit } = props;
 
   const { title, description, priority, deadline, image, alt, tags } = task;
 
@@ -72,6 +72,7 @@ export const Task = (props: TaskProps) => {
             variant={"default"}
             size={"sm"}
             className="bg-gray-700 hover:bg-gray-800"
+            onClick={onEdit}
           >
             <IoPencilOutline size={18} color="#ffff" />
           </Button>
@@ -79,6 +80,7 @@ export const Task = (props: TaskProps) => {
             variant={"default"}
             size={"sm"}
             className="bg-red-500 hover:bg-red-600"
+            onClick={onRemove}
           >
             <IoTrashOutline size={16} />
           </Button>

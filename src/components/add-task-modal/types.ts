@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 import { TaskT } from "@/globals";
 
 export type Tag = {
@@ -10,6 +8,5 @@ export type Tag = {
 
 export type AddTaskModalProps = {
   onClose: () => void;
-  setOpen: Dispatch<SetStateAction<boolean>>;
   handleAddTask: (taskData: TaskT) => void;
 };

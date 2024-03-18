@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { AddTaskModal, Task } from "../../components";
+import { AddTaskModal, EditTaskModal, Task } from "../../components";
 import { Columns, TaskT, onDragEnd } from "../../globals";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
@@ -11,20 +11,66 @@ import { useState } from "react";
 export const Boards = () => {
   const [columns, setColumns] = useState<Columns>(Board);
   const [isOpen, setIsOpen] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState("");
+  const [editedTask, setEditedTask] = useState<TaskT>();
 
   const handleOpen = (columnId: string) => {
     setSelectedColumn(columnId);
     setIsOpen(true);
   };
 
+  const handleOpenEdit = (columnId: string, taskId: string) => {
+    setSelectedColumn(columnId);
+    setIsEdit(true);
+    // Encontrar a tarefa pelo ID
+    const editedTask = columns[columnId].items.find(
+      (task) => task.id === taskId
+    );
+    if (editedTask) {
+      setEditedTask(editedTask);
+    }
+  };
+
   const handleClose = () => {
     setIsOpen(false);
+  };
+
+  const handleEditClose = () => {
+    setIsEdit(false);
   };
 
   const handleAdd = (taskData: TaskT) => {
     const newBoard = { ...columns };
     newBoard[selectedColumn].items.push(taskData);
+  };
+
+  const handleRemove = (taskId: string) => {
+    const updatedColumns = { ...columns };
+    const columnKeys = Object.keys(updatedColumns);
+    for (const key of columnKeys) {
+      const column = updatedColumns[key];
+      const index = column.items.findIndex((task) => task.id === taskId);
+      if (index !== -1) {
+        updatedColumns[key].items.splice(index, 1);
+        break;
+      }
+    }
+    setColumns(updatedColumns);
+  };
+
+  const handleEdit = (taskId: string, updatedTaskData: TaskT) => {
+    const updatedColumns = { ...columns };
+    const columnKeys = Object.keys(updatedColumns);
+    for (const key of columnKeys) {
+      const column = updatedColumns[key];
+      const index = column.items.findIndex((task) => task.id === taskId);
+      if (index !== -1) {
+        updatedColumns[key].items[index] = updatedTaskData;
+        break;
+      }
+    }
+    setColumns(updatedColumns);
   };
 
   return (
@@ -56,7 +102,16 @@ export const Boards = () => {
                         >
                           {(provided) => (
                             <>
-                              <Task provided={provided} task={task} />
+                              <Task
+                                provided={provided}
+                                task={task}
+                                onRemove={() =>
+                                  handleRemove(task.id.toString())
+                                }
+                                onEdit={() =>
+                                  handleOpenEdit(columnId, task.id.toString())
+                                }
+                              />
                             </>
                           )}
                         </Draggable>
@@ -79,10 +134,14 @@ export const Boards = () => {
       </DragDropContext>
 
       {isOpen && (
-        <AddTaskModal
-          onClose={handleClose}
-          setOpen={setIsOpen}
-          handleAddTask={handleAdd}
+        <AddTaskModal onClose={handleClose} handleAddTask={handleAdd} />
+      )}
+
+      {isEdit && (
+        <EditTaskModal
+          onClose={handleEditClose}
+          task={editedTask}
+          handleEditTask={handleEdit}
         />
       )}
     </>

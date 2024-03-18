@@ -1,12 +1,12 @@
 import { AddTaskModalProps, Tag } from "./types";
+import { ChangeEvent, useState } from "react";
 
 import { Modal } from "..";
 import { getRandomColors } from "@/globals";
-import { useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 
 export const AddTaskModal = (props: AddTaskModalProps) => {
-  const { onClose, setOpen, handleAddTask } = props;
+  const { onClose, handleAddTask } = props;
   const initialTaskData = {
     id: uuidV4(),
     title: "",
@@ -22,15 +22,13 @@ export const AddTaskModal = (props: AddTaskModalProps) => {
   const [tagTitle, setTagTitle] = useState("");
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setTaskData({ ...taskData, [name]: value });
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
       reader.onload = function (e) {
@@ -51,21 +49,20 @@ export const AddTaskModal = (props: AddTaskModalProps) => {
     }
   };
 
-  const closeModal = () => {
-    setOpen(false);
+  const handleClose = () => {
     onClose();
     setTaskData(initialTaskData);
   };
 
   const handleSubmit = () => {
     handleAddTask(taskData);
-    closeModal();
+    handleClose();
     return true;
   };
 
   return (
     <>
-      <Modal onConfirm={handleSubmit} onHide={closeModal} size="auto">
+      <Modal onConfirm={handleSubmit} onHide={handleClose} size="auto">
         <div className="md:w-[30vw] w-[90%] bg-white rounded-lg shadow-md z-50 flex flex-col items-center gap-3 px-5 py-6">
           <input
             type="text"
