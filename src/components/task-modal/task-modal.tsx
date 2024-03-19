@@ -1,17 +1,12 @@
 import "./styles.css";
 
 import {
-  AddTaskModalForm,
-  AddTaskModalProps,
-  InitialValueDTO,
-  Tag,
-} from "./types";
-import {
   DAFAULT_WIDTH_INPUTS,
   DEFAULT_ERROR_INPUT_STYLE,
   DEFAULT_INPUT_STYLE,
   INITIAL_DATA,
 } from "./consts";
+import { InitialValueDTO, Tag, TaskModalForm, TaskModalProps } from "./types";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -26,14 +21,16 @@ import { getRandomColors } from "@/globals";
 import { twMerge } from "tailwind-merge";
 import { useState } from "react";
 
-export const AddTaskModal = (props: AddTaskModalProps) => {
-  const { onClose, handleAddTask } = props;
+export const TaskModal = (props: TaskModalProps) => {
+  const { onClose, handleAddTask, taskEdit } = props;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AddTaskModalForm>();
+  } = useForm<TaskModalForm>({
+    defaultValues: taskEdit?.isEdit ? taskEdit.task : INITIAL_DATA,
+  });
 
   const [data, setData] = useState(INITIAL_DATA);
   const [tagTitle, setTagTitle] = useState("");
@@ -47,16 +44,27 @@ export const AddTaskModal = (props: AddTaskModalProps) => {
     }
   };
 
-  const onSubmit: SubmitHandler<AddTaskModalForm> = (formData) => {
-    console.log(formData);
-    const newData: InitialValueDTO = {
-      id: data.id,
-      tags: data.tags,
-      endTask: data.endTask,
-      ...formData,
-    };
+  const onSubmit: SubmitHandler<TaskModalForm> = (formData) => {
+    if (taskEdit && taskEdit.task) {
+      const newData: InitialValueDTO = {
+        ...formData,
+        id: taskEdit.task.id,
+        tags: data.tags.length ? data.tags : taskEdit.task.tags,
+        endTask: data.endTask ? data.endTask : taskEdit.task.endTask,
+      };
 
-    handleAddTask(newData);
+      taskEdit.handleEditTask(taskEdit.task.id, newData);
+    } else {
+      const newData: InitialValueDTO = {
+        ...formData,
+        id: data.id,
+        tags: data.tags,
+        endTask: data.endTask,
+      };
+
+      handleAddTask(newData);
+    }
+
     onClose();
   };
 
@@ -66,7 +74,11 @@ export const AddTaskModal = (props: AddTaskModalProps) => {
         onConfirm={handleSubmit(onSubmit)}
         onHide={onClose}
         size="md"
-        title="Adicionar Tarefa"
+        title={
+          taskEdit?.isEdit
+            ? `Editando Tarefa: ${taskEdit.task?.title}`
+            : "Adicionar Tarefa"
+        }
         hasForm
       >
         <div className="w-full flex flex-col items-center gap-3 px-5 py-6">
@@ -114,8 +126,11 @@ export const AddTaskModal = (props: AddTaskModalProps) => {
                 "focus-visible:ring-2 focus-visible:ring-white"
               )}
             >
+              <option value="" disabled hidden>
+                * Prioridade
+              </option>
               <option value="low">Baixa</option>
-              <option value="medium">Media</option>
+              <option value="medium">Média</option>
               <option value="high">Alta</option>
             </select>
             {errors.priority && (
@@ -139,7 +154,9 @@ export const AddTaskModal = (props: AddTaskModalProps) => {
             <PopoverTrigger asChild>
               <Button variant={"default"} className={DEFAULT_INPUT_STYLE}>
                 <div className="flex justify-between w-full items-center">
-                  {data.endTask ? (
+                  {taskEdit?.isEdit && taskEdit.task?.endTask ? (
+                    format(taskEdit.task.endTask, "dd/MM/yyyy")
+                  ) : data.endTask ? (
                     format(data.endTask, "dd/MM/yyyy")
                   ) : (
                     <span>Data de Finalização</span>
@@ -151,7 +168,9 @@ export const AddTaskModal = (props: AddTaskModalProps) => {
             <PopoverContent className="w-auto p-0">
               <Calendar
                 mode="single"
-                selected={data.endTask}
+                selected={
+                  taskEdit?.isEdit ? taskEdit.task?.endTask : data.endTask
+                }
                 onSelect={(value) => {
                   if (value) setData({ ...data, ["endTask"]: value });
                 }}

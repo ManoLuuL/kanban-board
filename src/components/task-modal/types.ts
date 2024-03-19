@@ -6,9 +6,14 @@ export type Tag = {
   text: string;
 };
 
-export type AddTaskModalProps = {
+export type TaskModalProps = {
   onClose: () => void;
-  handleAddTask: (taskData: TaskProps) => void;
+  handleAddTask(taskData: TaskProps): void;
+  taskEdit?: {
+    isEdit: boolean;
+    task?: TaskProps;
+    handleEditTask(taskId: string, updatedTaskData: TaskProps): void;
+  };
 };
 
 export type InitialValueDTO = {
@@ -22,12 +27,12 @@ export type InitialValueDTO = {
   tags: Tag[];
 };
 
-export type AddTaskModalForm = {
+export type TaskModalForm = {
   title: string;
   briefDescription: string;
   description: string;
   priority: string;
   deadline: number;
   endTask?: Date;
-  tags?: Tag[];
+  tags: Tag[];
 };

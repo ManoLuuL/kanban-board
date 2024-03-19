@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { AddTaskModal, EditTaskModal, TaskCard } from "../../components";
 import { Columns, TaskProps, onDragEnd } from "../../globals";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { TaskCard, TaskModal } from "../../components";
 
 import { Board } from "../../data/board";
 import { IoAddOutline } from "react-icons/io5";
@@ -34,10 +34,8 @@ export const Boards = () => {
 
   const handleClose = () => {
     setIsOpen(false);
-  };
-
-  const handleEditClose = () => {
     setIsEdit(false);
+    setEditedTask(undefined);
   };
 
   const handleAdd = (taskData: TaskProps) => {
@@ -133,15 +131,15 @@ export const Boards = () => {
         </div>
       </DragDropContext>
 
-      {isOpen && (
-        <AddTaskModal onClose={handleClose} handleAddTask={handleAdd} />
-      )}
-
-      {isEdit && (
-        <EditTaskModal
-          onClose={handleEditClose}
-          task={editedTask}
-          handleEditTask={handleEdit}
+      {(isOpen || isEdit) && (
+        <TaskModal
+          onClose={handleClose}
+          handleAddTask={handleAdd}
+          taskEdit={{
+            isEdit,
+            task: editedTask,
+            handleEditTask: handleEdit,
+          }}
         />
       )}
     </>
