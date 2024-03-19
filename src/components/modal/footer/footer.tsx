@@ -54,6 +54,7 @@ export const ModalFooter = (props: InternalModalFooterProps) => {
           type={saveButtonType}
           className="px-7 bg-cyan-500 hover:bg-cyan-600"
           onClick={handleClick}
+          form={formId}
         >
           {saveButtonText}
         </Button>

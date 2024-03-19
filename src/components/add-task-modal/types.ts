@@ -18,8 +18,16 @@ export type InitialValueDTO = {
   description: string;
   priority: string;
   deadline: number;
-  image: string;
-  alt: string;
-  endTask: Date | undefined;
+  endTask?: Date;
   tags: Tag[];
+};
+
+export type AddTaskModalForm = {
+  title: string;
+  briefDescription: string;
+  description: string;
+  priority: string;
+  deadline: number;
+  endTask?: Date;
+  tags?: Tag[];
 };

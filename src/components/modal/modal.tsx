@@ -22,7 +22,6 @@ export const Modal = (props: ModalProps) => {
     onConfirm,
     customFooter,
     customHeader,
-    isAllButtonsDisabled,
     showFooter = true,
     showHeader = true,
     hasPadding = true,
@@ -39,7 +38,6 @@ export const Modal = (props: ModalProps) => {
     if (!onHide) return;
     setIsOpen(false);
 
-    // setTimeout utilizado para que a animação de fechar modal possa acontecer.
     setTimeout(() => {
       onHide();
     }, MODAL_CLOSE_ANIMATION_MODAL_TIME);
@@ -51,8 +49,8 @@ export const Modal = (props: ModalProps) => {
     setIsSubmitting(true);
 
     try {
-      const isSuccess = await onConfirm();
-      if (isSuccess) handleClose();
+      onConfirm();
+      // handleClose();
     } catch (e) {
       console.log({ e, originFunction: "handleConfirm" });
     } finally {
@@ -64,9 +62,6 @@ export const Modal = (props: ModalProps) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // como pode haver um formulário abaixo do modal,
-    // stopPropagation é chamado para garantir que somente esse submit seja chamado
     e.stopPropagation();
     await handleConfirm();
   };
@@ -131,7 +126,6 @@ export const Modal = (props: ModalProps) => {
                   }}
                   onClose={handleClose}
                   isSubmitting={isSubmitting}
-                  isAllButtonsDisabled={isAllButtonsDisabled}
                   title={title}
                   hasCloseFunction={hasCloseFunction}
                 />
@@ -164,7 +158,6 @@ export const Modal = (props: ModalProps) => {
                   onClose={handleClose}
                   onConfirm={handleFooterConfirm}
                   isSubmitting={isSubmitting}
-                  isAllButtonsDisabled={isAllButtonsDisabled}
                   formId={formId}
                   hasConfirmFunction={hasConfirmFunction}
                   hasCloseFunction={hasCloseFunction}
