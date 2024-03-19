@@ -1,65 +1,110 @@
-import "./styles.css";
-
 import {
-  DAFAULT_WIDTH_INPUTS,
+  Button,
+  Calendar,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Textarea,
+} from "../ui";
+import {
   DEFAULT_ERROR_INPUT_STYLE,
   DEFAULT_INPUT_STYLE,
   INITIAL_DATA,
 } from "./consts";
-import { InitialValueDTO, Tag, TaskModalForm, TaskModalProps } from "./types";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { InitialValueDTO, TaskModalForm, TaskModalProps } from "./types";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { Button } from "../ui/button";
-import { Calendar } from "../ui/calendar";
 import { CalendarIcon } from "lucide-react";
-import { Input } from "../ui/input";
 import { Modal } from "../modal";
-import { Textarea } from "../ui/textarea";
 import { format } from "date-fns";
-import { getRandomColors } from "@/globals";
 import { twMerge } from "tailwind-merge";
-import { useState } from "react";
+import { v4 as uuidV4 } from "uuid";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export const TaskModal = (props: TaskModalProps) => {
   const { onClose, handleAddTask, taskEdit } = props;
+  const formId = uuidV4();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TaskModalForm>({
+  const taskSchema = z.object({
+    title: z.string().min(5, {
+      message: "Mínimo de 5 caracteres.",
+    }),
+    briefDescription: z
+      .string()
+      .min(5, {
+        message: "Mínimo de 5 caracteres.",
+      })
+      .max(10, {
+        message: "Máximo de 10 caracteres.",
+      }),
+    description: z
+      .string()
+      .min(10, {
+        message: "Mínimo de 10 caracteres.",
+      })
+      .max(160, {
+        message: "Maximo de caracteres atingido.",
+      }),
+    priority: z.string().min(1, {
+      message: "Mínimo de 1 caracteres.",
+    }),
+    endTask: z.date().optional(),
+    deadline: z.number().min(2, {
+      message: "Mínimo de 2 caracteres.",
+    }),
+    tags: z.array(
+      z.object({
+        title: z.string(),
+        bg: z.string(),
+        text: z.string(),
+      })
+    ),
+  });
+
+  const form = useForm<z.infer<typeof taskSchema>>({
+    resolver: zodResolver(taskSchema),
     defaultValues: taskEdit?.isEdit ? taskEdit.task : INITIAL_DATA,
   });
 
-  const [data, setData] = useState(INITIAL_DATA);
-  const [tagTitle, setTagTitle] = useState("");
+  // const [data, setData] = useState(INITIAL_DATA);
+  // const [tagTitle, setTagTitle] = useState("");
 
-  const handleAddTag = () => {
-    if (tagTitle.trim() !== "") {
-      const { bg, text } = getRandomColors();
-      const newTag: Tag = { title: tagTitle.trim(), bg, text };
-      setData({ ...data, tags: [...data.tags, newTag] });
-      setTagTitle("");
-    }
-  };
+  // const handleAddTag = () => {
+  //   if (tagTitle.trim() !== "") {
+  //     const { bg, text } = getRandomColors();
+  //     const newTag: Tag = { title: tagTitle.trim(), bg, text };
+  //     setData({ ...data, tags: [...data.tags, newTag] });
+  //     setTagTitle("");
+  //   }
+  // };
 
   const onSubmit: SubmitHandler<TaskModalForm> = (formData) => {
     if (taskEdit && taskEdit.task) {
       const newData: InitialValueDTO = {
         ...formData,
         id: taskEdit.task.id,
-        tags: data.tags.length ? data.tags : taskEdit.task.tags,
-        endTask: data.endTask ? data.endTask : taskEdit.task.endTask,
+        // tags: data.tags.length ? data.tags : taskEdit.task.tags,
       };
 
       taskEdit.handleEditTask(taskEdit.task.id, newData);
     } else {
       const newData: InitialValueDTO = {
         ...formData,
-        id: data.id,
-        tags: data.tags,
-        endTask: data.endTask,
+        id: uuidV4(),
+        // tags: data.tags,
       };
 
       handleAddTask(newData);
@@ -71,7 +116,7 @@ export const TaskModal = (props: TaskModalProps) => {
   return (
     <>
       <Modal
-        onConfirm={handleSubmit(onSubmit)}
+        onConfirm={form.handleSubmit(onSubmit)}
         onHide={onClose}
         size="md"
         title={
@@ -79,105 +124,167 @@ export const TaskModal = (props: TaskModalProps) => {
             ? `Editando Tarefa: ${taskEdit.task?.title}`
             : "Adicionar Tarefa"
         }
-        hasForm
       >
-        <div className="w-full flex flex-col items-center gap-3 px-5 py-6">
-          <div className={DAFAULT_WIDTH_INPUTS}>
-            <Input
-              type="text"
-              placeholder="* Título"
-              className={twMerge(
-                DEFAULT_INPUT_STYLE,
-                errors.title && DEFAULT_ERROR_INPUT_STYLE
+        <Form {...form}>
+          <form id={formId} className="w-full gap-3">
+            <FormField
+              control={form.control}
+              name="title"
+              rules={{
+                required: true,
+              }}
+              render={({ field }) => (
+                <FormItem className="mb-2">
+                  <FormLabel className="text-gray-50">* Titulo</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className={twMerge(
+                        DEFAULT_INPUT_STYLE,
+                        form.formState.errors.title && DEFAULT_ERROR_INPUT_STYLE
+                      )}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
-              {...register("title", { required: true })}
             />
-            {errors.title && (
-              <span className="text-red-500">O campo é obrigatorio</span>
-            )}
-          </div>
-          <div className={DAFAULT_WIDTH_INPUTS}>
-            <Input
-              type="text"
-              placeholder="* Breve Descrição"
-              className={DEFAULT_INPUT_STYLE}
-              {...register("briefDescription", { required: true })}
-            />
-            {errors.briefDescription && (
-              <span className="text-red-500">O campo é obrigatorio</span>
-            )}
-          </div>
-          <div className={DAFAULT_WIDTH_INPUTS}>
-            <Textarea
-              placeholder="* Descrição Completa"
-              className={DEFAULT_INPUT_STYLE}
-              {...register("description", { required: true })}
-            />
-            {errors.description && (
-              <span className="text-red-500">O campo é obrigatorio</span>
-            )}
-          </div>
-
-          <div className={DAFAULT_WIDTH_INPUTS}>
-            <select
-              {...register("priority", { required: true })}
-              className={twMerge(
-                DEFAULT_INPUT_STYLE,
-                "focus-visible:ring-2 focus-visible:ring-white"
+            <FormField
+              control={form.control}
+              name="briefDescription"
+              render={({ field }) => (
+                <FormItem className="mb-2">
+                  <FormLabel className="text-gray-50">
+                    * Breve Descrição
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className={twMerge(
+                        DEFAULT_INPUT_STYLE,
+                        form.formState.errors.briefDescription &&
+                          DEFAULT_ERROR_INPUT_STYLE
+                      )}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
-            >
-              <option value="" disabled hidden>
-                * Prioridade
-              </option>
-              <option value="low">Baixa</option>
-              <option value="medium">Média</option>
-              <option value="high">Alta</option>
-            </select>
-            {errors.priority && (
-              <span className="text-red-500">O campo é obrigatorio</span>
-            )}
-          </div>
-
-          <div className={DAFAULT_WIDTH_INPUTS}>
-            <Input
-              type="number"
-              placeholder="* Tempo de execução"
-              className={DEFAULT_INPUT_STYLE}
-              {...register("deadline", { required: true })}
             />
-            {errors.deadline && (
-              <span className="text-red-500">O campo é obrigatorio</span>
-            )}
-          </div>
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="mb-2">
+                  <FormLabel className="text-gray-50">
+                    * Descrição Completa
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      {...field}
+                      className={twMerge(
+                        DEFAULT_INPUT_STYLE,
+                        form.formState.errors.description &&
+                          DEFAULT_ERROR_INPUT_STYLE
+                      )}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="priority"
+              render={({ field }) => (
+                <FormItem className="mb-2">
+                  <FormLabel className="text-gray-50">* Prioridade</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione uma prioridade" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="low">Baixa</SelectItem>
+                        <SelectItem value="medium">Média</SelectItem>
+                        <SelectItem value="high">Alta</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
 
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant={"default"} className={DEFAULT_INPUT_STYLE}>
-                <div className="flex justify-between w-full items-center">
-                  {taskEdit?.isEdit && taskEdit.task?.endTask ? (
-                    format(taskEdit.task.endTask, "dd/MM/yyyy")
-                  ) : data.endTask ? (
-                    format(data.endTask, "dd/MM/yyyy")
-                  ) : (
-                    <span>Data de Finalização</span>
-                  )}
-                  <CalendarIcon className="ml-2 h-4 w-4" />
-                </div>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
-              <Calendar
-                mode="single"
-                selected={
-                  taskEdit?.isEdit ? taskEdit.task?.endTask : data.endTask
-                }
-                onSelect={(value) => {
-                  if (value) setData({ ...data, ["endTask"]: value });
-                }}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="deadline"
+              render={({ field }) => (
+                <FormItem className="mb-2">
+                  <FormLabel className="text-gray-50">
+                    * Tempo de execução
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="number"
+                      min={0}
+                      className={twMerge(
+                        DEFAULT_INPUT_STYLE,
+                        form.formState.errors.deadline &&
+                          DEFAULT_ERROR_INPUT_STYLE
+                      )}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="endTask"
+              render={({ field }) => (
+                <FormItem className="mb-2">
+                  <FormLabel className="text-gray-50">
+                    Data de Finalização
+                  </FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"default"}
+                        className={DEFAULT_INPUT_STYLE}
+                      >
+                        <div className="flex justify-between w-full items-center">
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Data de Finalização</span>
+                          )}
+                          <CalendarIcon className="ml-2 h-4 w-4" />
+                        </div>
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+
+        {/*
 
           <Input
             type="text"
@@ -206,7 +313,7 @@ export const TaskModal = (props: TaskModalProps) => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </Modal>
     </>
   );

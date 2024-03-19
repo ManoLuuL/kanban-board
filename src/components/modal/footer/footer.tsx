@@ -14,13 +14,9 @@ export const ModalFooter = (props: InternalModalFooterProps) => {
     elementAttributes,
   } = props;
 
-  const handleClick = () => !hasForm && onConfirm();
+  const handleClick = () => onConfirm();
   const handleClose = () => onClose?.();
 
-  const hasForm = !!formId;
-
-  const saveButtonText = hasForm ? "Salvar" : "Confirmar";
-  const saveButtonType = hasForm ? "submit" : "button";
   const isButtonDisabled = isAllButtonsDisabled || isSubmitting;
 
   return (
@@ -51,12 +47,12 @@ export const ModalFooter = (props: InternalModalFooterProps) => {
           id={"save_button"}
           variant={"default"}
           disabled={isButtonDisabled}
-          type={saveButtonType}
+          type={"submit"}
           className="px-7 bg-cyan-500 hover:bg-cyan-600"
           onClick={handleClick}
           form={formId}
         >
-          {saveButtonText}
+          Salvar
         </Button>
       )}
     </div>

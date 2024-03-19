@@ -1,24 +1,22 @@
 import * as Dialog from "@radix-ui/react-dialog";
 
-import { FormEvent, useRef, useState } from "react";
 import {
   MODAL_CLOSE_ANIMATION_MODAL_TIME,
   MODAL_HEADER_ID,
   MODAL_SIZES,
 } from "./consts";
+import { useRef, useState } from "react";
 
 import { ModalFooter } from "./footer";
 import { ModalHeader } from "./header";
 import { ModalProps } from "./types";
 import { twMerge } from "tailwind-merge";
-import { v4 as uuid } from "uuid";
 
 export const Modal = (props: ModalProps) => {
   const {
     children,
     onHide,
     title,
-    hasForm,
     onConfirm,
     customFooter,
     customHeader,
@@ -27,6 +25,7 @@ export const Modal = (props: ModalProps) => {
     hasPadding = true,
     allowCloseOnEscapeAndOutsideClick = true,
     size = "sm",
+    formId,
   } = props;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,18 +59,11 @@ export const Modal = (props: ModalProps) => {
 
   const handleFooterConfirm = async () => await handleConfirm();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    await handleConfirm();
-  };
-
   const handleCloseOnEscapeAndOutsideClick = () => {
     if (!allowCloseOnEscapeAndOutsideClick) return;
     handleClose();
   };
 
-  const formId = hasForm ? uuid() : undefined;
   const defaultHeaderAndFooterPadding = hasPadding && "p-4 pb-2";
   const hasCloseFunction = !!onHide;
   const hasConfirmFunction = !!onConfirm;
@@ -135,18 +127,7 @@ export const Modal = (props: ModalProps) => {
                 className={twMerge(hasPadding && "p-3", "flex flex-col")}
                 style={contentStyle}
               >
-                {hasForm ? (
-                  <form
-                    id={formId}
-                    className={twMerge("flex-grow", "px-2", "overflow-hidden")}
-                    onSubmit={handleSubmit}
-                    noValidate={true}
-                  >
-                    {children}
-                  </form>
-                ) : (
-                  <div className="px-2">{children}</div>
-                )}
+                <div className="px-2">{children}</div>
               </div>
             }
             {showFooter &&
@@ -155,10 +136,10 @@ export const Modal = (props: ModalProps) => {
                   elementAttributes={{
                     className: twMerge(defaultHeaderAndFooterPadding),
                   }}
+                  formId={formId}
                   onClose={handleClose}
                   onConfirm={handleFooterConfirm}
                   isSubmitting={isSubmitting}
-                  formId={formId}
                   hasConfirmFunction={hasConfirmFunction}
                   hasCloseFunction={hasCloseFunction}
                 />

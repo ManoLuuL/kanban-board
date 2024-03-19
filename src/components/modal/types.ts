@@ -27,7 +27,7 @@ export type ModalProps = ModalDefaultProps &
     children?: ReactNode;
     showFooter?: boolean;
     showHeader?: boolean;
-    hasForm?: boolean;
     hasPadding?: boolean;
     size?: ModalSizes;
+    formId?: string;
   };
