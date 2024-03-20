@@ -87,20 +87,23 @@ export const Boards = () => {
       >
         <div className="w-full flex items-start justify-between px-5 pb-8 md:gap-6 sm:gap-10 h-full rounded-md">
           {Object.entries(columns).map(([columnId, column]: any) => (
-            <div className="w-full flex flex-col gap-2" key={columnId}>
+            <div
+              className="w-full flex flex-col gap-2 justify-center items-center"
+              key={columnId}
+            >
               <Droppable droppableId={columnId} key={columnId}>
                 {(provided) => (
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className="flex flex-col bg-gray-950 w-[21rem]  h-full rounded-md"
+                    className="flex flex-col bg-gray-950 w-[21rem] h-full rounded-md"
                   >
                     <div className="bg-gray-800 text-lg h-14 rounded-xl p-3 font-bold border-gray-950 border-4 flex items-center justify-center">
                       <div className="flex gap-2 justify-center items-center text-gray-50">
                         {column.name}
                       </div>
                     </div>
-                    <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">
+                    <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-hidden">
                       {column.items.map((task: any, index: any) => (
                         <Draggable
                           key={task.id.toString()}
