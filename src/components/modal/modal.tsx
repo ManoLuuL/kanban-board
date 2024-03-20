@@ -49,9 +49,9 @@ export const Modal = (props: ModalProps) => {
 
     try {
       onConfirm();
-      // handleClose();
+      handleClose();
     } catch (e) {
-      console.log({ e, originFunction: "handleConfirm" });
+      console.error({ e, originFunction: "handleConfirm" });
     } finally {
       setIsSubmitting(false);
     }

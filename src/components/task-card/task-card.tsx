@@ -1,6 +1,7 @@
 import { IoCalendarOutline, IoTimeOutline, IoTrash } from "react-icons/io5";
 
 import { Button } from "../ui/button";
+import { TASK_CARD_DEFAULT_TAG_STYLE } from "./consts";
 import { TaskCardProps } from "./types";
 import { format } from "date-fns";
 import { twMerge } from "tailwind-merge";
@@ -12,8 +13,6 @@ export const TaskCard = (props: TaskCardProps) => {
 
   const priorityText =
     priority === "high" ? "Alta" : priority === "medium" ? "Média" : "Baixa";
-
-  console.log(tags);
 
   return (
     <div
@@ -29,15 +28,18 @@ export const TaskCard = (props: TaskCardProps) => {
     >
       <div className="w-full flex items-start flex-col gap-2" onClick={onEdit}>
         <div className="text-center flex justify-center items-center">
-          <span className="text-lg font-medium text-gray-50">{title}</span>
+          <span className="text-xl font-semibold text-gray-50 text-left">
+            {title}
+          </span>
         </div>
-        <span className="text-xs text-gray-50 inline-block max-w-60 whitespace-nowrap overflow-hidden text-ellipsis h-10">
+        <span className="text-sm text-gray-50 my-1 h-11 font-medium">
           {briefDescription}
         </span>
         <div className="flex gap-2">
           <span
             className={twMerge(
-              "px-3 py-1 text-xs font-medium rounded-md text-white",
+              "text-white",
+              TASK_CARD_DEFAULT_TAG_STYLE,
               priority === "high"
                 ? "bg-red-500"
                 : priority === "medium"
@@ -52,7 +54,7 @@ export const TaskCard = (props: TaskCardProps) => {
               <span
                 key={tag.title}
                 className={twMerge(
-                  "px-3 py-1 text-xs font-medium rounded-md",
+                  TASK_CARD_DEFAULT_TAG_STYLE,
                   tag.bg,
                   tag.text
                 )}

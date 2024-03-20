@@ -69,13 +69,20 @@ export const TaskModal = (props: TaskModalProps) => {
     deadline: z.coerce.number().min(2, {
       message: "Mínimo de 2 caracteres.",
     }),
-    tags: z.array(
-      z.object({
-        title: z.string(),
-        bg: z.string(),
-        text: z.string(),
+    tags: z
+      .array(
+        z.object({
+          title: z.string(),
+          bg: z.string(),
+          text: z.string(),
+        })
+      )
+      .min(1, {
+        message: "Mínimo de 1 Tag.",
       })
-    ),
+      .max(3, {
+        message: "Máximo de Tags atingido.",
+      }),
   });
 
   const form = useForm<z.infer<typeof taskSchema>>({
@@ -107,8 +114,6 @@ export const TaskModal = (props: TaskModalProps) => {
         description: `${newData.briefDescription}`,
       });
     }
-
-    onClose();
   };
 
   return (
@@ -246,6 +251,29 @@ export const TaskModal = (props: TaskModalProps) => {
             />
             <FormField
               control={form.control}
+              name="tags"
+              render={({ field }) => (
+                <FormItem className="mb-2">
+                  <FormLabel className="text-gray-50">* Tags</FormLabel>
+                  <FormControl>
+                    <MultiSelect
+                      {...field}
+                      options={TASK_MODAL_TAG_OPTION}
+                      optionLabel="title"
+                      showSelectAll={false}
+                      className={twMerge(
+                        TASK_MODAL_DEFAULT_INPUT_STYLE,
+                        form.formState.errors.tags &&
+                          TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
+                      )}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="endTask"
               render={({ field }) => (
                 <FormItem className="mb-2">
@@ -276,28 +304,6 @@ export const TaskModal = (props: TaskModalProps) => {
                       />
                     </PopoverContent>
                   </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="tags"
-              render={({ field }) => (
-                <FormItem className="mb-2">
-                  <FormLabel className="text-gray-50">Tags</FormLabel>
-                  <FormControl>
-                    <MultiSelect
-                      {...field}
-                      options={TASK_MODAL_TAG_OPTION}
-                      optionLabel="title"
-                      className={twMerge(
-                        TASK_MODAL_DEFAULT_INPUT_STYLE,
-                        form.formState.errors.tags &&
-                          TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
-                      )}
-                    />
-                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

@@ -7,6 +7,7 @@ import { TaskCard, TaskModal } from "../../components";
 import { Board } from "../../data/board";
 import { IoAddOutline } from "react-icons/io5";
 import { useState } from "react";
+import { useToast } from "@/components/ui";
 
 export const Boards = () => {
   const [columns, setColumns] = useState<Columns>(Board);
@@ -14,6 +15,8 @@ export const Boards = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState("");
   const [editedTask, setEditedTask] = useState<TaskProps>();
+
+  const { toast } = useToast();
 
   const handleOpen = (columnId: string) => {
     setSelectedColumn(columnId);
@@ -46,15 +49,21 @@ export const Boards = () => {
   const handleRemove = (taskId: string) => {
     const updatedColumns = { ...columns };
     const columnKeys = Object.keys(updatedColumns);
+    let taskTitle = "";
     for (const key of columnKeys) {
       const column = updatedColumns[key];
       const index = column.items.findIndex((task) => task.id === taskId);
+      taskTitle = column.items.find((task) => task.id === taskId)?.title ?? "";
       if (index !== -1) {
         updatedColumns[key].items.splice(index, 1);
         break;
       }
     }
     setColumns(updatedColumns);
+    toast({
+      title: `Deletada a Tarefa: ${taskTitle}`,
+      description: "Todos os dados removidos com sucesso.",
+    });
   };
 
   const handleEdit = (taskId: string, updatedTaskData: TaskProps) => {

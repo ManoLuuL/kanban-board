@@ -4,9 +4,9 @@ export type TaskProps = {
   briefDescription: string;
   description: string;
   priority: string;
-  endTask?: Date;
   deadline: number;
   tags: { title: string; bg: string; text: string }[];
+  endTask?: Date;
 };
 
 type Column = {
