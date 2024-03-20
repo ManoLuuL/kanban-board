@@ -1,10 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 
-import {
-  MODAL_CLOSE_ANIMATION_MODAL_TIME,
-  MODAL_HEADER_ID,
-  MODAL_SIZES,
-} from "./consts";
+import { MODAL_CLOSE_ANIMATION_MODAL_TIME, MODAL_HEADER_ID } from "./consts";
 import { useRef, useState } from "react";
 
 import { ModalFooter } from "./footer";
@@ -24,7 +20,7 @@ export const Modal = (props: ModalProps) => {
     showHeader = true,
     hasPadding = true,
     allowCloseOnEscapeAndOutsideClick = true,
-    size = "sm",
+
     formId,
   } = props;
 
@@ -67,13 +63,6 @@ export const Modal = (props: ModalProps) => {
   const hasCloseFunction = !!onHide;
   const hasConfirmFunction = !!onConfirm;
 
-  const contentWidth = MODAL_SIZES[size];
-  const contentStyle = contentWidth
-    ? {
-        width: contentWidth,
-      }
-    : undefined;
-
   return (
     <>
       <div
@@ -83,7 +72,7 @@ export const Modal = (props: ModalProps) => {
           "top-0 left-0",
           "bg-gray-900/80",
           "absolute",
-          "z-10"
+          "z-40"
         )}
       />
       <Dialog.Root modal={false} open={true} defaultOpen>
@@ -95,7 +84,7 @@ export const Modal = (props: ModalProps) => {
             className={twMerge(
               "h-fit w-fit",
               "right-0 left-0 m-auto top-0 bottom-0",
-              "fixed z-10 rounded-md overflow-y-auto",
+              "fixed z-50 rounded-md overflow-y-auto",
               "bg-gray-950",
               "outline-none",
               "shadow-lg",
@@ -123,8 +112,10 @@ export const Modal = (props: ModalProps) => {
               ))}
             {
               <div
-                className={twMerge(hasPadding && "p-3", "flex flex-col")}
-                style={contentStyle}
+                className={twMerge(
+                  hasPadding && "p-3",
+                  "flex flex-col sm:w-auto md:w-[50rem]"
+                )}
               >
                 <div className="px-2">{children}</div>
               </div>

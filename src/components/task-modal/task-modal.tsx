@@ -122,7 +122,6 @@ export const TaskModal = (props: TaskModalProps) => {
       <Modal
         onConfirm={form.handleSubmit(onSubmit)}
         onHide={onClose}
-        size="lg"
         title={
           taskEdit?.isEdit
             ? `Editando Tarefa: ${taskEdit.task?.title}`
