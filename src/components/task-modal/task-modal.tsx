@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
   Textarea,
+  useToast,
 } from "../ui";
 import {
   DEFAULT_ERROR_INPUT_STYLE,
@@ -37,6 +38,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 export const TaskModal = (props: TaskModalProps) => {
   const { onClose, handleAddTask, taskEdit } = props;
   const formId = uuidV4();
+  const { toast } = useToast();
 
   const taskSchema = z.object({
     title: z.string().min(5, {
@@ -47,22 +49,22 @@ export const TaskModal = (props: TaskModalProps) => {
       .min(5, {
         message: "Mínimo de 5 caracteres.",
       })
-      .max(10, {
-        message: "Máximo de 10 caracteres.",
+      .max(25, {
+        message: "Máximo de 25 caracteres.",
       }),
     description: z
       .string()
       .min(10, {
         message: "Mínimo de 10 caracteres.",
       })
-      .max(160, {
-        message: "Maximo de caracteres atingido.",
+      .max(260, {
+        message: "Máximo de caracteres atingido.",
       }),
     priority: z.string().min(1, {
       message: "Mínimo de 1 caracteres.",
     }),
     endTask: z.date().optional(),
-    deadline: z.number().min(2, {
+    deadline: z.coerce.number().min(2, {
       message: "Mínimo de 2 caracteres.",
     }),
     tags: z.array(
@@ -100,6 +102,10 @@ export const TaskModal = (props: TaskModalProps) => {
       };
 
       taskEdit.handleEditTask(taskEdit.task.id, newData);
+      toast({
+        title: `Modificada a Tarefa ${newData.title}`,
+        description: `${newData.briefDescription}`,
+      });
     } else {
       const newData: InitialValueDTO = {
         ...formData,
@@ -108,6 +114,10 @@ export const TaskModal = (props: TaskModalProps) => {
       };
 
       handleAddTask(newData);
+      toast({
+        title: `Criada a Tarefa ${newData.title}`,
+        description: `${newData.briefDescription}`,
+      });
     }
 
     onClose();

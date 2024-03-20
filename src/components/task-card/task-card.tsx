@@ -74,9 +74,9 @@ export const TaskCard = (props: TaskCardProps) => {
         </div>
         <div className="flex items-center gap-2">
           <Button
-            variant={"default"}
+            variant={"secondary"}
             size={"sm"}
-            className="bg-gray-800 text-red-500 hover:bg-red-500 hover:text-red-100 transition-all"
+            className="!text-red-500 hover:!bg-red-500 hover:!text-red-100 !transition-all"
             onClick={onRemove}
           >
             <IoTrash size={16} />
