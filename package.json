@@ -24,6 +24,7 @@
     "date-fns": "^3.6.0",
     "lucide-react": "^0.358.0",
     "postcss": "^8.4.35",
+    "primereact": "^10.5.3",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-day-picker": "^8.10.0",

@@ -1,5 +1,4 @@
-import { Columns, getRandomColors } from "../globals";
-
+import { Columns } from "../globals";
 import { v4 as uuidv4 } from "uuid";
 
 export const Board: Columns = {
@@ -16,8 +15,8 @@ export const Board: Columns = {
         endTask: new Date(),
         deadline: 50,
         tags: [
-          { title: "Test", ...getRandomColors() },
-          { title: "Front", ...getRandomColors() },
+          { title: "Teste", bg: "bg-yellow-500", text: "text-white" },
+          { title: "Front-end", bg: "bg-blue-500", text: "text-white" },
         ],
       },
       {
@@ -29,8 +28,8 @@ export const Board: Columns = {
         endTask: new Date(),
         deadline: 50,
         tags: [
-          { title: "Test", ...getRandomColors() },
-          { title: "Front", ...getRandomColors() },
+          { title: "Teste", bg: "bg-yellow-500", text: "text-white" },
+          { title: "Back-end", bg: "bg-green-500", text: "text-white" },
         ],
       },
     ],
@@ -46,8 +45,8 @@ export const Board: Columns = {
         priority: "high",
         deadline: 50,
         tags: [
-          { title: "Test", ...getRandomColors() },
-          { title: "Front", ...getRandomColors() },
+          { title: "Teste", bg: "bg-yellow-500", text: "text-white" },
+          { title: "Back-end", bg: "bg-green-500", text: "text-white" },
         ],
       },
       {
@@ -58,8 +57,8 @@ export const Board: Columns = {
         priority: "low",
         deadline: 50,
         tags: [
-          { title: "Test", ...getRandomColors() },
-          { title: "Front", ...getRandomColors() },
+          { title: "Teste", bg: "bg-yellow-500", text: "text-white" },
+          { title: "Front-end", bg: "bg-blue-500", text: "text-white" },
         ],
       },
     ],
@@ -75,8 +74,8 @@ export const Board: Columns = {
         priority: "medium",
         deadline: 50,
         tags: [
-          { title: "Test", ...getRandomColors() },
-          { title: "Front", ...getRandomColors() },
+          { title: "Teste", bg: "bg-yellow-500", text: "text-white" },
+          { title: "Front-end", bg: "bg-blue-500", text: "text-white" },
         ],
       },
     ],
@@ -92,8 +91,8 @@ export const Board: Columns = {
         priority: "low",
         deadline: 50,
         tags: [
-          { title: "Test", ...getRandomColors() },
-          { title: "Front", ...getRandomColors() },
+          { title: "Teste", bg: "bg-yellow-500", text: "text-white" },
+          { title: "Front-end", bg: "bg-blue-500", text: "text-white" },
         ],
       },
       {
@@ -104,8 +103,8 @@ export const Board: Columns = {
         priority: "medium",
         deadline: 50,
         tags: [
-          { title: "Test", ...getRandomColors() },
-          { title: "Front", ...getRandomColors() },
+          { title: "Teste", bg: "bg-yellow-500", text: "text-white" },
+          { title: "Back-end", bg: "bg-green-500", text: "text-white" },
         ],
       },
     ],
@@ -121,8 +120,8 @@ export const Board: Columns = {
         priority: "high",
         deadline: 50,
         tags: [
-          { title: "Test", ...getRandomColors() },
-          { title: "Front", ...getRandomColors() },
+          { title: "Teste", bg: "bg-yellow-500", text: "text-white" },
+          { title: "Front-end", bg: "bg-blue-500", text: "text-white" },
         ],
       },
     ],

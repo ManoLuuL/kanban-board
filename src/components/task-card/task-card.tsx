@@ -13,6 +13,8 @@ export const TaskCard = (props: TaskCardProps) => {
   const priorityText =
     priority === "high" ? "Alta" : priority === "medium" ? "Média" : "Baixa";
 
+  console.log(tags);
+
   return (
     <div
       ref={provided.innerRef}
@@ -49,8 +51,11 @@ export const TaskCard = (props: TaskCardProps) => {
             {tags.map((tag) => (
               <span
                 key={tag.title}
-                className={twMerge("px-3 py-1 text-xs font-medium rounded-md")}
-                style={{ backgroundColor: tag.bg, color: tag.text }}
+                className={twMerge(
+                  "px-3 py-1 text-xs font-medium rounded-md",
+                  tag.bg,
+                  tag.text
+                )}
               >
                 {tag.title}
               </span>

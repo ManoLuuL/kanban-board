@@ -19,16 +19,18 @@ import {
   Textarea,
   useToast,
 } from "../ui";
-import {
-  DEFAULT_ERROR_INPUT_STYLE,
-  DEFAULT_INPUT_STYLE,
-  INITIAL_DATA,
-} from "./consts";
 import { InitialValueDTO, TaskModalForm, TaskModalProps } from "./types";
 import { SubmitHandler, useForm } from "react-hook-form";
+import {
+  TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE,
+  TASK_MODAL_DEFAULT_INPUT_STYLE,
+  TASK_MODAL_INITIAL_DATA,
+  TASK_MODAL_TAG_OPTION,
+} from "./consts";
 
 import { CalendarIcon } from "lucide-react";
 import { Modal } from "../modal";
+import { MultiSelect } from "primereact/multiselect";
 import { format } from "date-fns";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuidV4 } from "uuid";
@@ -78,27 +80,14 @@ export const TaskModal = (props: TaskModalProps) => {
 
   const form = useForm<z.infer<typeof taskSchema>>({
     resolver: zodResolver(taskSchema),
-    defaultValues: taskEdit?.isEdit ? taskEdit.task : INITIAL_DATA,
+    defaultValues: taskEdit?.isEdit ? taskEdit.task : TASK_MODAL_INITIAL_DATA,
   });
-
-  // const [data, setData] = useState(INITIAL_DATA);
-  // const [tagTitle, setTagTitle] = useState("");
-
-  // const handleAddTag = () => {
-  //   if (tagTitle.trim() !== "") {
-  //     const { bg, text } = getRandomColors();
-  //     const newTag: Tag = { title: tagTitle.trim(), bg, text };
-  //     setData({ ...data, tags: [...data.tags, newTag] });
-  //     setTagTitle("");
-  //   }
-  // };
 
   const onSubmit: SubmitHandler<TaskModalForm> = (formData) => {
     if (taskEdit && taskEdit.task) {
       const newData: InitialValueDTO = {
         ...formData,
         id: taskEdit.task.id,
-        // tags: data.tags.length ? data.tags : taskEdit.task.tags,
       };
 
       taskEdit.handleEditTask(taskEdit.task.id, newData);
@@ -110,7 +99,6 @@ export const TaskModal = (props: TaskModalProps) => {
       const newData: InitialValueDTO = {
         ...formData,
         id: uuidV4(),
-        // tags: data.tags,
       };
 
       handleAddTask(newData);
@@ -150,8 +138,9 @@ export const TaskModal = (props: TaskModalProps) => {
                     <Input
                       {...field}
                       className={twMerge(
-                        DEFAULT_INPUT_STYLE,
-                        form.formState.errors.title && DEFAULT_ERROR_INPUT_STYLE
+                        TASK_MODAL_DEFAULT_INPUT_STYLE,
+                        form.formState.errors.title &&
+                          TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
                       )}
                     />
                   </FormControl>
@@ -171,9 +160,9 @@ export const TaskModal = (props: TaskModalProps) => {
                     <Input
                       {...field}
                       className={twMerge(
-                        DEFAULT_INPUT_STYLE,
+                        TASK_MODAL_DEFAULT_INPUT_STYLE,
                         form.formState.errors.briefDescription &&
-                          DEFAULT_ERROR_INPUT_STYLE
+                          TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
                       )}
                     />
                   </FormControl>
@@ -193,9 +182,9 @@ export const TaskModal = (props: TaskModalProps) => {
                     <Textarea
                       {...field}
                       className={twMerge(
-                        DEFAULT_INPUT_STYLE,
+                        TASK_MODAL_DEFAULT_INPUT_STYLE,
                         form.formState.errors.description &&
-                          DEFAULT_ERROR_INPUT_STYLE
+                          TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
                       )}
                     />
                   </FormControl>
@@ -245,9 +234,9 @@ export const TaskModal = (props: TaskModalProps) => {
                       type="number"
                       min={0}
                       className={twMerge(
-                        DEFAULT_INPUT_STYLE,
+                        TASK_MODAL_DEFAULT_INPUT_STYLE,
                         form.formState.errors.deadline &&
-                          DEFAULT_ERROR_INPUT_STYLE
+                          TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
                       )}
                     />
                   </FormControl>
@@ -267,7 +256,7 @@ export const TaskModal = (props: TaskModalProps) => {
                     <PopoverTrigger asChild>
                       <Button
                         variant={"default"}
-                        className={DEFAULT_INPUT_STYLE}
+                        className={TASK_MODAL_DEFAULT_INPUT_STYLE}
                       >
                         <div className="flex justify-between w-full items-center">
                           {field.value ? (
@@ -291,39 +280,30 @@ export const TaskModal = (props: TaskModalProps) => {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="tags"
+              render={({ field }) => (
+                <FormItem className="mb-2">
+                  <FormLabel className="text-gray-50">Tags</FormLabel>
+                  <FormControl>
+                    <MultiSelect
+                      {...field}
+                      options={TASK_MODAL_TAG_OPTION}
+                      optionLabel="title"
+                      className={twMerge(
+                        TASK_MODAL_DEFAULT_INPUT_STYLE,
+                        form.formState.errors.tags &&
+                          TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
+                      )}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </form>
         </Form>
-
-        {/*
-
-          <Input
-            type="text"
-            value={tagTitle}
-            onChange={(e) => setTagTitle(e.target.value)}
-            placeholder="Título Tag"
-            className={DEFAULT_INPUT_STYLE}
-          />
-          <Button
-            variant={"default"}
-            className="w-full rounded-md h-9 bg-gray-800 !text-white font-medium"
-            onClick={handleAddTag}
-            type="button"
-          >
-            Adicionar Tag
-          </Button>
-          <div className="w-full">
-            {data.tags.length && <span className="text-gray-50">Tags:</span>}
-            {data.tags.map((tag, index) => (
-              <div
-                key={index}
-                className="inline-block mx-1 px-2 py-1 text-xs font-medium rounded-md"
-                style={{ backgroundColor: tag.bg, color: tag.text }}
-              >
-                {tag.title}
-              </div>
-            ))}
-          </div>
-        </div> */}
       </Modal>
     </>
   );

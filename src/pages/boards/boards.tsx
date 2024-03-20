@@ -76,7 +76,7 @@ export const Boards = () => {
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
       >
-        <div className="w-full flex items-start justify-between px-5 pb-8 md:gap-0 gap-10  h-full rounded-md">
+        <div className="w-full flex items-start justify-between px-5 pb-8 md:gap-0 gap-10 h-full rounded-md">
           {Object.entries(columns).map(([columnId, column]: any) => (
             <div className="w-full flex flex-col gap-0" key={columnId}>
               <Droppable droppableId={columnId} key={columnId}>
@@ -84,7 +84,7 @@ export const Boards = () => {
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className="flex flex-col bg-gray-950 w-[21rem] max-h-screen h-[850px] rounded-md"
+                    className="flex flex-col bg-gray-950 w-[21rem] max-h-[calc(100vh-6rem)] h-screen rounded-md"
                   >
                     <div className="bg-gray-800 text-lg h-14 rounded-xl p-3 font-bold border-gray-950 border-4 flex items-center justify-center">
                       <div className="flex gap-2 justify-center items-center text-gray-50">
