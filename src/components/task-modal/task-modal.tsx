@@ -51,8 +51,8 @@ export const TaskModal = (props: TaskModalProps) => {
       .min(5, {
         message: "Mínimo de 5 caracteres.",
       })
-      .max(25, {
-        message: "Máximo de 25 caracteres.",
+      .max(50, {
+        message: "Máximo de 50 caracteres.",
       }),
     description: z
       .string()
@@ -114,6 +114,7 @@ export const TaskModal = (props: TaskModalProps) => {
         description: `${newData.briefDescription}`,
       });
     }
+    onClose();
   };
 
   return (

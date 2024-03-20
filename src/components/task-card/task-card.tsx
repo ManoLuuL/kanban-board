@@ -28,11 +28,11 @@ export const TaskCard = (props: TaskCardProps) => {
     >
       <div className="w-full flex items-start flex-col gap-2" onClick={onEdit}>
         <div className="text-center flex justify-center items-center">
-          <span className="text-xl font-semibold text-gray-50 text-left">
+          <span className="text-xl font-semibold text-gray-50 text-left select-none">
             {title}
           </span>
         </div>
-        <span className="text-sm text-gray-50 my-1 h-11 font-medium">
+        <span className="text-sm text-gray-50 my-1 h-11 font-medium select-none">
           {briefDescription}
         </span>
         <div className="flex gap-2">
@@ -70,20 +70,22 @@ export const TaskCard = (props: TaskCardProps) => {
         {endTask && (
           <div className="flex items-center gap-1">
             <IoCalendarOutline color={"#ffffff"} className="h-5 w-5" />
-            <span className="text-xs text-gray-50">
+            <span className="text-xs text-gray-50 select-none">
               {format(endTask, "dd/MM/yyyy")}
             </span>
           </div>
         )}
         <div className="flex items-center gap-1">
           <IoTimeOutline color={"#ffffff"} className="h-5 w-5" />
-          <span className="text-xs text-gray-50">{deadline} mins</span>
+          <span className="text-xs text-gray-50 select-none">
+            {deadline} mins
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <Button
             variant={"secondary"}
             size={"sm"}
-            className="!text-red-500 hover:!bg-red-500 hover:!text-red-100 !transition-all"
+            className="!text-red-500 hover:!bg-red-500 hover:!text-red-100 !transition-all select-none"
             onClick={onRemove}
           >
             <IoTrash size={16} />

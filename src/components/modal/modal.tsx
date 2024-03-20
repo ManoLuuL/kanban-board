@@ -49,7 +49,6 @@ export const Modal = (props: ModalProps) => {
 
     try {
       onConfirm();
-      handleClose();
     } catch (e) {
       console.error({ e, originFunction: "handleConfirm" });
     } finally {
