@@ -1,5 +1,8 @@
 # Kanban Board
 
+![image](https://github.com/ManoLuuL/kanban-board/assets/83422352/5dcc9b14-646b-42ce-959e-fccde5c5e9b5)
+
+
 Este é um projeto de exemplo de um Kanban Board criado com Vite, React, TypeScript e Tailwind CSS, demonstrando um sistema de gerenciamento de tarefas simples com a funcionalidade de arrastar e soltar utilizando React Beautiful DnD.
 
 ## Como Baixar e Executar o Projeto
