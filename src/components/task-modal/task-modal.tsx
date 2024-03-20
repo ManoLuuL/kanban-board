@@ -121,7 +121,7 @@ export const TaskModal = (props: TaskModalProps) => {
       <Modal
         onConfirm={form.handleSubmit(onSubmit)}
         onHide={onClose}
-        size="md"
+        size="lg"
         title={
           taskEdit?.isEdit
             ? `Editando Tarefa: ${taskEdit.task?.title}`
@@ -133,9 +133,6 @@ export const TaskModal = (props: TaskModalProps) => {
             <FormField
               control={form.control}
               name="title"
-              rules={{
-                required: true,
-              }}
               render={({ field }) => (
                 <FormItem className="mb-2">
                   <FormLabel className="text-gray-50">* Titulo</FormLabel>
