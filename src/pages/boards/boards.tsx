@@ -1,5 +1,5 @@
 import { Button, useToast } from "@/components/ui";
-import { Columns, TaskProps, onDragEnd } from "../../globals";
+import { Columns, TaskProps, onDragEnd, useSearch } from "../../globals";
 import {
   DragDropContext,
   Draggable,
@@ -7,13 +7,14 @@ import {
   Droppable,
 } from "react-beautiful-dnd";
 import { TaskCard, TaskModal } from "../../components";
+import { useEffect, useState } from "react";
 
 import { IoAddOutline } from "react-icons/io5";
 import { TaskData } from "@/data";
 import { twMerge } from "tailwind-merge";
-import { useState } from "react";
 
 export const Boards = () => {
+  const { searchTerm, filteredColumns, setFilteredColumns } = useSearch();
   const [columns, setColumns] = useState<Columns>(TaskData);
   const [isOpen, setIsOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -87,11 +88,24 @@ export const Boards = () => {
   const handleOnDragEnd = (result: DropResult) =>
     onDragEnd({ result, columns, setColumns });
 
+  useEffect(() => {
+    const newFilteredColumns: Columns = {};
+    Object.entries(columns).forEach(([columnId, column]) => {
+      newFilteredColumns[columnId] = {
+        ...column,
+        items: column.items.filter((task) =>
+          task.title.toLowerCase().includes(searchTerm.toLowerCase())
+        ),
+      };
+    });
+    setFilteredColumns(newFilteredColumns);
+  }, [searchTerm, columns, setFilteredColumns]);
+
   return (
     <>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <div className="flex flex-grow justify-between p-5 md:gap-6 sm:gap-10 rounded-md overflow-scroll">
-          {Object.entries(columns).map(([columnId, column]) => (
+          {Object.entries(filteredColumns).map(([columnId, column]) => (
             <Droppable droppableId={columnId} key={columnId}>
               {(provided) => (
                 <div

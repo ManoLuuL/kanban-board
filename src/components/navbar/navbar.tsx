@@ -1,8 +1,15 @@
 import { IoSearchOutline } from "react-icons/io5";
 import { UserAccountMenu } from "./components";
 import { twMerge } from "tailwind-merge";
+import { useSearch } from "@/globals";
 
 export const Navbar = () => {
+  const { searchTerm, setSearchTerm } = useSearch();
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
   return (
     <div
       className={twMerge(
@@ -29,6 +36,8 @@ export const Navbar = () => {
           type="text"
           placeholder="Search"
           className={twMerge("w-full", "bg-gray-900 outline-none", "text-base")}
+          value={searchTerm}
+          onChange={handleSearch}
         />
       </div>
       <div className="md:flex items-center gap-4">
