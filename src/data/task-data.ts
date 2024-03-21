@@ -2,7 +2,7 @@ import { Columns } from "../globals";
 import { TASK_MODAL_TAG_OPTION } from "@/components";
 import { v4 as uuidv4 } from "uuid";
 
-export const Board: Columns = {
+export const TaskData: Columns = {
   backlog: {
     name: "Backlog",
     items: [

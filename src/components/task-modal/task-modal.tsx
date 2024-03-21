@@ -25,6 +25,7 @@ import {
   TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE,
   TASK_MODAL_DEFAULT_INPUT_STYLE,
   TASK_MODAL_INITIAL_DATA,
+  TASK_MODAL_SCHEMA,
   TASK_MODAL_TAG_OPTION,
 } from "./consts";
 
@@ -34,7 +35,6 @@ import { MultiSelect } from "primereact/multiselect";
 import { format } from "date-fns";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuidV4 } from "uuid";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export const TaskModal = (props: TaskModalProps) => {
@@ -42,72 +42,24 @@ export const TaskModal = (props: TaskModalProps) => {
   const formId = uuidV4();
   const { toast } = useToast();
 
-  const taskSchema = z.object({
-    title: z.string().min(5, {
-      message: "Mínimo de 5 caracteres.",
-    }),
-    briefDescription: z
-      .string()
-      .min(5, {
-        message: "Mínimo de 5 caracteres.",
-      })
-      .max(50, {
-        message: "Máximo de 50 caracteres.",
-      }),
-    description: z
-      .string()
-      .min(10, {
-        message: "Mínimo de 10 caracteres.",
-      })
-      .max(260, {
-        message: "Máximo de caracteres atingido.",
-      }),
-    priority: z.string().min(1, {
-      message: "Mínimo de 1 caracteres.",
-    }),
-    endTask: z.date().optional(),
-    deadline: z.coerce.number().min(2, {
-      message: "Mínimo de 2 caracteres.",
-    }),
-    tags: z
-      .array(
-        z.object({
-          title: z.string(),
-          bg: z.string(),
-          text: z.string(),
-        })
-      )
-      .min(1, {
-        message: "Mínimo de 1 Tag.",
-      })
-      .max(3, {
-        message: "Máximo de Tags atingido.",
-      }),
-  });
-
-  const form = useForm<z.infer<typeof taskSchema>>({
-    resolver: zodResolver(taskSchema),
+  const form = useForm<TaskModalForm>({
+    resolver: zodResolver(TASK_MODAL_SCHEMA),
     defaultValues: taskEdit?.isEdit ? taskEdit.task : TASK_MODAL_INITIAL_DATA,
   });
 
   const onSubmit: SubmitHandler<TaskModalForm> = (formData) => {
-    if (taskEdit && taskEdit.task) {
-      const newData: InitialValueDTO = {
-        ...formData,
-        id: taskEdit.task.id,
-      };
+    const newData: InitialValueDTO = {
+      ...formData,
+      id: taskEdit?.task?.id || uuidV4(),
+    };
 
+    if (taskEdit && taskEdit.task) {
       taskEdit.handleEditTask(taskEdit.task.id, newData);
       toast({
         title: `Modificada a Tarefa ${newData.title}`,
         description: `${newData.briefDescription}`,
       });
     } else {
-      const newData: InitialValueDTO = {
-        ...formData,
-        id: uuidV4(),
-      };
-
       handleAddTask(newData);
       toast({
         title: `Criada a Tarefa ${newData.title}`,

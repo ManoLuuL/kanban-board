@@ -6,9 +6,9 @@ export const Navbar = () => {
   return (
     <div
       className={twMerge(
-        "h-16 w-full z-20",
-        "fixed flex items-center justify-between",
-        "px-6 top-0",
+        "h-full w-full z-20",
+        "flex items-center justify-between",
+        "px-6",
         "border-b border-gray-300 bg-gray-800"
       )}
     >

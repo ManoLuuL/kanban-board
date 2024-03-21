@@ -1,5 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const onDragEnd = (result: any, columns: any, setColumns: any) => {
+import { DragEndParams } from "./types";
+
+export const onDragEnd = (params: DragEndParams) => {
+  const { columns, result, setColumns } = params;
   if (!result.destination) return;
 
   const { source, destination } = result;

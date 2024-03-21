@@ -3,11 +3,9 @@ import { Outlet } from "react-router";
 
 export const Layout = () => {
   return (
-    <div className="w-screen h-screen relative dark">
+    <div className="h-dvh grid overflow-hidden grid-rows-[4rem 1fr] grid-cols-[100dvw] sm:gap-6 dark">
       <Navbar />
-      <div className="px-5 pt-20 w-full h-full overflow-y-auto bg-gray-900">
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   );
 };

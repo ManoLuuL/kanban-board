@@ -21,21 +21,21 @@ export const TaskCard = (props: TaskCardProps) => {
       {...provided.dragHandleProps}
       className={twMerge(
         "flex flex-col justify-between items-center px-3 py-4 gap-3 text-left rounded-xl relative",
-        "cursor-grab task",
+        "cursor-grab task shadow-md shadow-gray-950",
         "bg-gray-800 hover:ring-2 hover:ring-inset hover:ring-cyan-500",
         "transition duration-200 hover:scale-105"
       )}
     >
       <div className="w-full flex items-start flex-col gap-2" onClick={onEdit}>
         <div className="text-center flex justify-center items-center">
-          <span className="text-xl font-semibold text-gray-50 text-left select-none">
+          <span className="text-xl font-semibold text-gray-50 md:text-left text-center select-none">
             {title}
           </span>
         </div>
-        <span className="text-sm text-gray-50 my-1 h-11 font-medium select-none">
+        <span className="text-sm text-gray-50 my-1 font-normal select-none text-center md:text-left">
           {briefDescription}
         </span>
-        <div className="flex gap-2">
+        <div className="w-full flex md:gap-2 flex-col md:flex-row items-center justify-center md:justify-normal">
           <span
             className={twMerge(
               "text-white",
@@ -66,7 +66,7 @@ export const TaskCard = (props: TaskCardProps) => {
         </div>
       </div>
       <div className="w-full border border-dashed"></div>
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-center justify-between flex-col xl:flex-row gap-1 xl:gap-0">
         {endTask && (
           <div className="flex items-center gap-1">
             <IoCalendarOutline color={"#ffffff"} className="h-5 w-5" />

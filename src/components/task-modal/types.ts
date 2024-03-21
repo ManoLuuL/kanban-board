@@ -1,4 +1,6 @@
+import { TASK_MODAL_SCHEMA } from ".";
 import { TaskProps } from "@/globals";
+import { z } from "zod";
 
 export type Tag = {
   title: string;
@@ -27,12 +29,4 @@ export type InitialValueDTO = {
   tags: Tag[];
 };
 
-export type TaskModalForm = {
-  title: string;
-  briefDescription: string;
-  description: string;
-  priority: string;
-  deadline: number;
-  endTask?: Date;
-  tags: Tag[];
-};
+export type TaskModalForm = z.infer<typeof TASK_MODAL_SCHEMA>;
