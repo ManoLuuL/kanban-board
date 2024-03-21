@@ -38,7 +38,7 @@ export const TaskCard = (props: TaskCardProps) => {
         <div className="w-full flex md:gap-2 flex-col md:flex-row items-center justify-center md:justify-normal">
           <span
             className={twMerge(
-              "text-white",
+              "text-white opacity-95",
               TASK_CARD_DEFAULT_TAG_STYLE,
               priority === "high"
                 ? "bg-red-500"
@@ -65,7 +65,7 @@ export const TaskCard = (props: TaskCardProps) => {
           </div>
         </div>
       </div>
-      <div className="w-full border border-dashed"></div>
+      <div className="w-full border border-dashed opacity-80"></div>
       <div className="w-full flex items-center justify-between flex-col xl:flex-row gap-1 xl:gap-0">
         {endTask && (
           <div className="flex items-center gap-1">
@@ -77,9 +77,7 @@ export const TaskCard = (props: TaskCardProps) => {
         )}
         <div className="flex items-center gap-1">
           <IoTimeOutline color={"#ffffff"} className="h-5 w-5" />
-          <span className="text-xs text-gray-50 select-none">
-            {deadline} mins
-          </span>
+          <span className="text-xs text-gray-50 select-none">{deadline}</span>
         </div>
         <div className="flex items-center gap-2">
           <Button

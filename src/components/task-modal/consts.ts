@@ -4,7 +4,9 @@ import { v4 as uuidV4 } from "uuid";
 import { z } from "zod";
 
 export const TASK_MODAL_DEFAULT_INPUT_STYLE =
-  "w-full h-12 px-3 outline-none rounded-md bg-gray-700 text-gray-50 border border-slate-300 text-sm font-medium";
+  "w-full h-12 px-3 outline-none rounded-md bg-gray-900 text-gray-50 border border-slate-500 text-sm font-medium";
+
+export const TASK_MODAL_DEFAULT_LABEL_STYLE = "mb-2 space-y-1";
 
 export const TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE =
   "border-red-500 text-red-500";
@@ -15,7 +17,7 @@ export const TASK_MODAL_INITIAL_DATA: InitialValueDTO = {
   briefDescription: "",
   description: "",
   priority: "",
-  deadline: 0,
+  deadline: "",
   endTask: undefined,
   tags: [] as Tag[],
 };
@@ -51,9 +53,7 @@ export const TASK_MODAL_SCHEMA = z.object({
     message: "Mínimo de 1 caracteres.",
   }),
   endTask: z.date().optional(),
-  deadline: z.coerce.number().min(2, {
-    message: "Mínimo de 2 caracteres.",
-  }),
+  deadline: z.string(),
   tags: z
     .array(
       z.object({

@@ -47,7 +47,7 @@ export const Boards = () => {
   };
 
   const handleAdd = (taskData: TaskProps) => {
-    const newBoard = { ...columns };
+    const newBoard = { ...filteredColumns };
     newBoard[selectedColumn].items.push(taskData);
   };
 

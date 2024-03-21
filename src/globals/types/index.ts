@@ -4,7 +4,7 @@ export type TaskProps = {
   briefDescription: string;
   description: string;
   priority: string;
-  deadline: number;
+  deadline: string;
   tags: { title: string; bg: string; text: string }[];
   endTask?: Date;
 };

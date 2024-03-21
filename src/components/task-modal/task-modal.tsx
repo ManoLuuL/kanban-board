@@ -16,14 +16,15 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Textarea,
   useToast,
 } from "../ui";
+import { Editor, EditorTextChangeEvent } from "primereact/editor";
 import { InitialValueDTO, TaskModalForm, TaskModalProps } from "./types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE,
   TASK_MODAL_DEFAULT_INPUT_STYLE,
+  TASK_MODAL_DEFAULT_LABEL_STYLE,
   TASK_MODAL_INITIAL_DATA,
   TASK_MODAL_SCHEMA,
   TASK_MODAL_TAG_OPTION,
@@ -52,7 +53,7 @@ export const TaskModal = (props: TaskModalProps) => {
       ...formData,
       id: taskEdit?.task?.id || uuidV4(),
     };
-
+    console.log(newData);
     if (taskEdit && taskEdit.task) {
       taskEdit.handleEditTask(taskEdit.task.id, newData);
       toast({
@@ -81,12 +82,17 @@ export const TaskModal = (props: TaskModalProps) => {
         }
       >
         <Form {...form}>
-          <form id={formId} className="w-full gap-3">
+          <form id={formId} className="w-full grid grid-cols-12 gap-3 p-3">
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
-                <FormItem className="mb-2">
+                <FormItem
+                  className={twMerge(
+                    "col-span-12",
+                    TASK_MODAL_DEFAULT_LABEL_STYLE
+                  )}
+                >
                   <FormLabel className="text-gray-50">* Titulo</FormLabel>
                   <FormControl>
                     <Input
@@ -106,7 +112,12 @@ export const TaskModal = (props: TaskModalProps) => {
               control={form.control}
               name="briefDescription"
               render={({ field }) => (
-                <FormItem className="mb-2">
+                <FormItem
+                  className={twMerge(
+                    "col-span-7",
+                    TASK_MODAL_DEFAULT_LABEL_STYLE
+                  )}
+                >
                   <FormLabel className="text-gray-50">
                     * Breve Descrição
                   </FormLabel>
@@ -124,33 +135,17 @@ export const TaskModal = (props: TaskModalProps) => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem className="mb-2">
-                  <FormLabel className="text-gray-50">
-                    * Descrição Completa
-                  </FormLabel>
-                  <FormControl>
-                    <Textarea
-                      {...field}
-                      className={twMerge(
-                        TASK_MODAL_DEFAULT_INPUT_STYLE,
-                        form.formState.errors.description &&
-                          TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
-                      )}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
             <FormField
               control={form.control}
               name="priority"
               render={({ field }) => (
-                <FormItem className="mb-2">
+                <FormItem
+                  className={twMerge(
+                    "col-span-3",
+                    TASK_MODAL_DEFAULT_LABEL_STYLE
+                  )}
+                >
                   <FormLabel className="text-gray-50">* Prioridade</FormLabel>
                   <FormControl>
                     <Select
@@ -178,15 +173,17 @@ export const TaskModal = (props: TaskModalProps) => {
               control={form.control}
               name="deadline"
               render={({ field }) => (
-                <FormItem className="mb-2">
-                  <FormLabel className="text-gray-50">
-                    * Tempo de execução
-                  </FormLabel>
+                <FormItem
+                  className={twMerge(
+                    "col-span-2",
+                    TASK_MODAL_DEFAULT_LABEL_STYLE
+                  )}
+                >
+                  <FormLabel className="text-gray-50">* Tempo</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      type="number"
-                      min={0}
+                      type="time"
                       className={twMerge(
                         TASK_MODAL_DEFAULT_INPUT_STYLE,
                         form.formState.errors.deadline &&
@@ -202,7 +199,12 @@ export const TaskModal = (props: TaskModalProps) => {
               control={form.control}
               name="tags"
               render={({ field }) => (
-                <FormItem className="mb-2">
+                <FormItem
+                  className={twMerge(
+                    "col-span-6",
+                    TASK_MODAL_DEFAULT_LABEL_STYLE
+                  )}
+                >
                   <FormLabel className="text-gray-50">* Tags</FormLabel>
                   <FormControl>
                     <MultiSelect
@@ -225,7 +227,12 @@ export const TaskModal = (props: TaskModalProps) => {
               control={form.control}
               name="endTask"
               render={({ field }) => (
-                <FormItem className="mb-2">
+                <FormItem
+                  className={twMerge(
+                    "col-span-6",
+                    TASK_MODAL_DEFAULT_LABEL_STYLE
+                  )}
+                >
                   <FormLabel className="text-gray-50">
                     Data de Finalização
                   </FormLabel>
@@ -253,6 +260,28 @@ export const TaskModal = (props: TaskModalProps) => {
                       />
                     </PopoverContent>
                   </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="mb-11 col-span-12">
+                  <FormLabel className="text-gray-50">
+                    * Descrição Completa
+                  </FormLabel>
+                  <FormControl>
+                    <Editor
+                      id={field.name}
+                      className={twMerge("max-h-96 h-40")}
+                      onTextChange={(e: EditorTextChangeEvent) => {
+                        field.onChange(e.htmlValue);
+                      }}
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

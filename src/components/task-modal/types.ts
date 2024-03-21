@@ -24,7 +24,7 @@ export type InitialValueDTO = {
   briefDescription: string;
   description: string;
   priority: string;
-  deadline: number;
+  deadline: string;
   endTask?: Date;
   tags: Tag[];
 };
