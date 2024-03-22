@@ -13,7 +13,7 @@ export const TaskData: Columns = {
         description:
           "Desenvolver a página de login com campos de usuário e senha.",
         priority: "high",
-        deadline: 180,
+        deadline: "18:00",
         endTask: new Date(2024, 2, 25),
         tags: [TASK_MODAL_TAG_OPTION[0]],
       },
@@ -23,7 +23,7 @@ export const TaskData: Columns = {
         briefDescription: "Configurar o servidor para o projeto",
         description: "Configurar um servidor para hospedar a aplicação.",
         priority: "medium",
-        deadline: 165,
+        deadline: "2:00",
         endTask: new Date(2024, 2, 28),
         tags: [TASK_MODAL_TAG_OPTION[1]],
       },
@@ -34,7 +34,7 @@ export const TaskData: Columns = {
         description:
           "Atualizar todas as bibliotecas para as últimas versões estáveis.",
         priority: "low",
-        deadline: 16,
+        deadline: "00:16",
         tags: [TASK_MODAL_TAG_OPTION[0]],
       },
       {
@@ -44,7 +44,7 @@ export const TaskData: Columns = {
         description:
           "Implementar a página de perfil do usuário com informações pessoais e configurações.",
         priority: "high",
-        deadline: 90,
+        deadline: "01:30",
         endTask: new Date(2024, 2, 25),
         tags: [TASK_MODAL_TAG_OPTION[0]],
       },
@@ -55,7 +55,7 @@ export const TaskData: Columns = {
         description:
           "Revisar e otimizar todas as consultas SQL para melhorar o desempenho do sistema.",
         priority: "high",
-        deadline: 90,
+        deadline: "01:30",
         endTask: new Date(2024, 2, 25),
         tags: [TASK_MODAL_TAG_OPTION[1]],
       },
@@ -71,7 +71,7 @@ export const TaskData: Columns = {
         description:
           "Incluir validações nos campos dos formulários para evitar dados inválidos.",
         priority: "medium",
-        deadline: 180,
+        deadline: "02:30",
         endTask: new Date(2024, 2, 28),
         tags: [TASK_MODAL_TAG_OPTION[0]],
       },
@@ -82,7 +82,7 @@ export const TaskData: Columns = {
         description:
           "Configurar um pipeline automatizado para testes e implantação contínua.",
         priority: "high",
-        deadline: 160,
+        deadline: "02:10",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[1]],
       },
@@ -93,7 +93,7 @@ export const TaskData: Columns = {
         description:
           "Criar documentação detalhada sobre a arquitetura, instalação e utilização do projeto.",
         priority: "medium",
-        deadline: 260,
+        deadline: "03:00",
         tags: [TASK_MODAL_TAG_OPTION[0]],
       },
       {
@@ -103,7 +103,7 @@ export const TaskData: Columns = {
         description:
           "Criar e executar testes automatizados para garantir a integridade do código.",
         priority: "high",
-        deadline: 90,
+        deadline: "01:30",
         tags: [TASK_MODAL_TAG_OPTION[2]],
       },
       {
@@ -113,7 +113,7 @@ export const TaskData: Columns = {
         description:
           "Configurar ambiente de desenvolvimento com as ferramentas necessárias.",
         priority: "medium",
-        deadline: 50,
+        deadline: "00:50",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[1]],
       },
@@ -129,7 +129,7 @@ export const TaskData: Columns = {
         description:
           "Realizar testes de unidade e integração nas funcionalidades implementadas.",
         priority: "high",
-        deadline: 180,
+        deadline: "01:50",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[2]],
       },
@@ -139,7 +139,7 @@ export const TaskData: Columns = {
         briefDescription: "Corrigir problemas identificados",
         description: "Corrigir os bugs identificados durante os testes.",
         priority: "high",
-        deadline: 200,
+        deadline: "02:50",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[3]],
       },
@@ -150,7 +150,7 @@ export const TaskData: Columns = {
         description:
           "Realizar ajustes no design para melhorar a experiência do usuário.",
         priority: "medium",
-        deadline: 160,
+        deadline: "01:40",
         endTask: new Date(2024, 3, 5),
         tags: [TASK_MODAL_TAG_OPTION[0]],
       },
@@ -161,7 +161,7 @@ export const TaskData: Columns = {
         description:
           "Desenvolver e implementar novas funcionalidades solicitadas.",
         priority: "high",
-        deadline: 180,
+        deadline: "03:00",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[1]],
       },
@@ -172,7 +172,7 @@ export const TaskData: Columns = {
         description:
           "Realizar testes de integração para garantir o funcionamento correto do sistema.",
         priority: "high",
-        deadline: 260,
+        deadline: "03:00",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[2]],
       },
@@ -188,7 +188,7 @@ export const TaskData: Columns = {
         description:
           "Realizar testes para avaliar o desempenho do sistema sob diferentes cargas.",
         priority: "high",
-        deadline: 360,
+        deadline: "04:00",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[2]],
       },
@@ -199,7 +199,7 @@ export const TaskData: Columns = {
         description:
           "Realizar testes para identificar e corrigir vulnerabilidades de segurança.",
         priority: "high",
-        deadline: 180,
+        deadline: "02:00",
         endTask: new Date(2024, 2, 23),
         tags: [TASK_MODAL_TAG_OPTION[2]],
       },
@@ -210,7 +210,7 @@ export const TaskData: Columns = {
         description:
           "Documentar os resultados dos testes de forma clara e objetiva.",
         priority: "low",
-        deadline: 90,
+        deadline: "01:30",
         tags: [TASK_MODAL_TAG_OPTION[2]],
       },
     ],
@@ -225,7 +225,7 @@ export const TaskData: Columns = {
         description:
           "Finalizar a documentação do projeto com todas as informações necessárias.",
         priority: "medium",
-        deadline: 90,
+        deadline: "01:30",
         tags: [TASK_MODAL_TAG_OPTION[0]],
       },
     ],

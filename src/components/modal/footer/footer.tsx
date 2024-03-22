@@ -12,12 +12,14 @@ export const ModalFooter = (props: InternalModalFooterProps) => {
     hasConfirmFunction,
     hasCloseFunction,
     elementAttributes,
+    hasForm,
   } = props;
 
   const handleClick = () => onConfirm();
   const handleClose = () => onClose?.();
 
   const isButtonDisabled = isAllButtonsDisabled || isSubmitting;
+  const confirmButtonTitle = hasForm ? "Salvar" : "Confirmar";
 
   return (
     <div
@@ -52,7 +54,7 @@ export const ModalFooter = (props: InternalModalFooterProps) => {
           onClick={handleClick}
           form={formId}
         >
-          Salvar
+          {confirmButtonTitle}
         </Button>
       )}
     </div>

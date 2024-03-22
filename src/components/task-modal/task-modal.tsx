@@ -39,7 +39,7 @@ import { v4 as uuidV4 } from "uuid";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export const TaskModal = (props: TaskModalProps) => {
-  const { onClose, handleAddTask, taskEdit } = props;
+  const { onHide, handleAddTask, taskEdit } = props;
   const formId = uuidV4();
   const { toast } = useToast();
 
@@ -67,22 +67,24 @@ export const TaskModal = (props: TaskModalProps) => {
         description: `${newData.briefDescription}`,
       });
     }
-    onClose();
+    onHide();
   };
 
   return (
     <>
       <Modal
         onConfirm={form.handleSubmit(onSubmit)}
-        onHide={onClose}
+        onHide={onHide}
         title={
           taskEdit?.isEdit
             ? `Editando Tarefa: ${taskEdit.task?.title}`
             : "Adicionar Tarefa"
         }
+        hasForm={true}
+        formId={formId}
       >
         <Form {...form}>
-          <form id={formId} className="w-full grid grid-cols-12 gap-3 p-3">
+          <form id={formId} className="w-full grid grid-cols-12 gap-3 p-3 ">
             <FormField
               control={form.control}
               name="title"
@@ -114,7 +116,7 @@ export const TaskModal = (props: TaskModalProps) => {
               render={({ field }) => (
                 <FormItem
                   className={twMerge(
-                    "col-span-7",
+                    "col-span-6 md:col-span-7",
                     TASK_MODAL_DEFAULT_LABEL_STYLE
                   )}
                 >
@@ -142,7 +144,7 @@ export const TaskModal = (props: TaskModalProps) => {
               render={({ field }) => (
                 <FormItem
                   className={twMerge(
-                    "col-span-3",
+                    "col-span-6 md:col-span-3",
                     TASK_MODAL_DEFAULT_LABEL_STYLE
                   )}
                 >
@@ -175,7 +177,7 @@ export const TaskModal = (props: TaskModalProps) => {
               render={({ field }) => (
                 <FormItem
                   className={twMerge(
-                    "col-span-2",
+                    "col-span-6 md:col-span-2",
                     TASK_MODAL_DEFAULT_LABEL_STYLE
                   )}
                 >
@@ -201,7 +203,7 @@ export const TaskModal = (props: TaskModalProps) => {
               render={({ field }) => (
                 <FormItem
                   className={twMerge(
-                    "col-span-6",
+                    "col-span-6 md:col-span-6",
                     TASK_MODAL_DEFAULT_LABEL_STYLE
                   )}
                 >
@@ -229,7 +231,7 @@ export const TaskModal = (props: TaskModalProps) => {
               render={({ field }) => (
                 <FormItem
                   className={twMerge(
-                    "col-span-6",
+                    "col-span-6 md:col-span-6",
                     TASK_MODAL_DEFAULT_LABEL_STYLE
                   )}
                 >

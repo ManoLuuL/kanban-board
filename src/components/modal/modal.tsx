@@ -20,7 +20,7 @@ export const Modal = (props: ModalProps) => {
     showHeader = true,
     hasPadding = true,
     allowCloseOnEscapeAndOutsideClick = true,
-
+    hasForm,
     formId,
   } = props;
 
@@ -132,6 +132,7 @@ export const Modal = (props: ModalProps) => {
                   isSubmitting={isSubmitting}
                   hasConfirmFunction={hasConfirmFunction}
                   hasCloseFunction={hasCloseFunction}
+                  hasForm={hasForm}
                 />
               ))}
           </Dialog.Content>

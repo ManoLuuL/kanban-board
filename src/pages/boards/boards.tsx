@@ -9,23 +9,33 @@ import {
 import { TaskCard, TaskModal } from "../../components";
 import { useEffect, useState } from "react";
 
+import { ConfirmDeleteModal } from "@/components/confirm-delete-modal";
 import { IoAddOutline } from "react-icons/io5";
 import { TaskData } from "@/data";
 import { twMerge } from "tailwind-merge";
 
 export const Boards = () => {
   const { searchTerm, filteredColumns, setFilteredColumns } = useSearch();
+  const { toast } = useToast();
+
   const [columns, setColumns] = useState<Columns>(TaskData);
   const [isOpen, setIsOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [isDelete, setIsDelete] = useState<string | undefined>();
   const [selectedColumn, setSelectedColumn] = useState("");
-  const [editedTask, setEditedTask] = useState<TaskProps>();
+  const [task, setTask] = useState<TaskProps>();
 
-  const { toast } = useToast();
+  const handleOnDragEnd = (result: DropResult) =>
+    onDragEnd({ result, columns, setColumns });
 
   const handleOpen = (columnId: string) => {
     setSelectedColumn(columnId);
     setIsOpen(true);
+  };
+
+  const handleAdd = (taskData: TaskProps) => {
+    const newBoard = { ...filteredColumns };
+    newBoard[selectedColumn].items.push(taskData);
   };
 
   const handleOpenEdit = (columnId: string, taskId: string) => {
@@ -36,42 +46,11 @@ export const Boards = () => {
       (task) => task.id === taskId
     );
     if (editedTask) {
-      setEditedTask(editedTask);
+      setTask(editedTask);
     }
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
-    setIsEdit(false);
-    setEditedTask(undefined);
-  };
-
-  const handleAdd = (taskData: TaskProps) => {
-    const newBoard = { ...filteredColumns };
-    newBoard[selectedColumn].items.push(taskData);
-  };
-
-  const handleRemove = (taskId: string) => {
-    const updatedColumns = { ...columns };
-    const columnKeys = Object.keys(updatedColumns);
-    let taskTitle = "";
-    for (const key of columnKeys) {
-      const column = updatedColumns[key];
-      const index = column.items.findIndex((task) => task.id === taskId);
-      taskTitle = column.items.find((task) => task.id === taskId)?.title ?? "";
-      if (index !== -1) {
-        updatedColumns[key].items.splice(index, 1);
-        break;
-      }
-    }
-    setColumns(updatedColumns);
-    toast({
-      title: `Deletada a Tarefa: ${taskTitle}`,
-      description: "Todos os dados removidos com sucesso.",
-    });
-  };
-
-  const handleEdit = (taskId: string, updatedTaskData: TaskProps) => {
+  const handleEditTask = (taskId: string, updatedTaskData: TaskProps) => {
     const updatedColumns = { ...columns };
     const columnKeys = Object.keys(updatedColumns);
     for (const key of columnKeys) {
@@ -85,8 +64,36 @@ export const Boards = () => {
     setColumns(updatedColumns);
   };
 
-  const handleOnDragEnd = (result: DropResult) =>
-    onDragEnd({ result, columns, setColumns });
+  const handleClose = () => {
+    setIsOpen(false);
+    setIsEdit(false);
+    setTask(undefined);
+  };
+
+  const handleDelete = (taskId: string) => {
+    setIsDelete(taskId);
+  };
+
+  const handleConfirmDelete = (taskId: string) => {
+    const updatedColumns = { ...columns };
+    const columnKeys = Object.keys(updatedColumns);
+    let taskTitle = "";
+    for (const key of columnKeys) {
+      const column = updatedColumns[key];
+      const index = column.items.findIndex((task) => task.id === taskId);
+      taskTitle = column.items.find((task) => task.id === taskId)?.title ?? "";
+      if (index !== -1) {
+        updatedColumns[key].items.splice(index, 1);
+        break;
+      }
+    }
+    setColumns(updatedColumns);
+    setIsDelete(undefined);
+    toast({
+      title: `Deletada a Tarefa: ${taskTitle}`,
+      description: "Todos os dados removidos com sucesso.",
+    });
+  };
 
   useEffect(() => {
     const newFilteredColumns: Columns = {};
@@ -129,7 +136,7 @@ export const Boards = () => {
                             <TaskCard
                               provided={provided}
                               task={task}
-                              onRemove={() => handleRemove(task.id.toString())}
+                              onRemove={() => handleDelete(task.id.toString())}
                               onEdit={() =>
                                 handleOpenEdit(columnId, task.id.toString())
                               }
@@ -160,13 +167,20 @@ export const Boards = () => {
 
       {(isOpen || isEdit) && (
         <TaskModal
-          onClose={handleClose}
+          onHide={handleClose}
           handleAddTask={handleAdd}
           taskEdit={{
             isEdit,
-            task: editedTask,
-            handleEditTask: handleEdit,
+            task,
+            handleEditTask,
           }}
+        />
+      )}
+
+      {isDelete && (
+        <ConfirmDeleteModal
+          onHide={() => setIsDelete(undefined)}
+          onConfirm={() => handleConfirmDelete(isDelete)}
         />
       )}
     </>

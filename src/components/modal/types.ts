@@ -13,7 +13,7 @@ export type ModalDefaultHeaderAndFooterProps = {
 };
 
 export type ModalDefaultProps = {
-  onHide?(): void;
+  onHide(): void;
   allowCloseOnEscapeAndOutsideClick?: boolean;
 };
 
@@ -27,4 +27,5 @@ export type ModalProps = ModalDefaultProps &
     showHeader?: boolean;
     hasPadding?: boolean;
     formId?: string;
+    hasForm?: boolean;
   };
