@@ -126,7 +126,7 @@ export const Boards = () => {
         <div className="flex flex-grow justify-between p-5 md:gap-6 sm:gap-10 rounded-md overflow-scroll">
           {Object.entries(filteredColumns).map(([columnId, column]) => (
             <Droppable droppableId={columnId} key={columnId}>
-              {(provided) => (
+              {(provided, snapshot) => (
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
@@ -142,6 +142,9 @@ export const Boards = () => {
                   </div>
 
                   <div className="flex flex-col gap-4 p-2 overflow-x-hidden">
+                    {snapshot.isDraggingOver ? (
+                      <div className="h-52 w-80 absolute border-dashed border-2 border-gray-700"></div>
+                    ) : null}
                     {column.items.map((task: TaskProps, index: number) => (
                       <Draggable
                         key={task.id.toString()}

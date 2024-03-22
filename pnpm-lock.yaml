@@ -47,6 +47,9 @@ dependencies:
   lucide-react:
     specifier: ^0.358.0
     version: 0.358.0(react@18.2.0)
+  natural-drag-animation-rbdnd:
+    specifier: ^2.1.1
+    version: 2.1.1(react@18.2.0)
   postcss:
     specifier: ^8.4.35
     version: 8.4.35
@@ -2836,6 +2839,15 @@ packages:
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
+
+  /natural-drag-animation-rbdnd@2.1.1(react@18.2.0):
+    resolution: {integrity: sha512-bUVV3uYLndZrauThgZtkCEtg/QXl66FjeAJcAWFFwBE4q53nvDH//ZCigOeqSjXL42HVS1BYQ1FjcvaycoNCBg==}
+    peerDependencies:
+      react: ^16.3.1
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
 
   /node-releases@2.0.14:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
