@@ -8,7 +8,6 @@ export const ModalFooter = (props: InternalModalFooterProps) => {
     onClose,
     isSubmitting,
     isAllButtonsDisabled,
-    formId,
     hasConfirmFunction,
     hasCloseFunction,
     elementAttributes,
@@ -52,7 +51,6 @@ export const ModalFooter = (props: InternalModalFooterProps) => {
           type={"submit"}
           className="px-7 bg-cyan-500 hover:bg-cyan-600"
           onClick={handleClick}
-          form={formId}
         >
           {confirmButtonTitle}
         </Button>

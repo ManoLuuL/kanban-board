@@ -53,7 +53,7 @@ export const TaskModal = (props: TaskModalProps) => {
       ...formData,
       id: taskEdit?.task?.id || uuidV4(),
     };
-    console.log(newData);
+
     if (taskEdit && taskEdit.task) {
       taskEdit.handleEditTask(taskEdit.task.id, newData);
       toast({
@@ -81,7 +81,6 @@ export const TaskModal = (props: TaskModalProps) => {
             : "Adicionar Tarefa"
         }
         hasForm={true}
-        formId={formId}
       >
         <Form {...form}>
           <form id={formId} className="w-full grid grid-cols-12 gap-3 p-3 ">

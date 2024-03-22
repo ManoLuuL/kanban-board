@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from "uuid";
 import { z } from "zod";
 
 export const TASK_MODAL_DEFAULT_INPUT_STYLE =
-  "w-full h-12 px-3 outline-none rounded-md bg-gray-900 text-gray-50 border border-slate-500 text-sm font-medium";
+  "w-full h-12 px-3 outline-none rounded-md bg-[#111827] text-gray-50 border border-[#424b57] text-sm font-medium";
 
 export const TASK_MODAL_DEFAULT_LABEL_STYLE = "mb-2 space-y-1";
 

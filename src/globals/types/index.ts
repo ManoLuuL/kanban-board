@@ -11,6 +11,7 @@ export type TaskProps = {
 
 type Column = {
   name: string;
+  color: string;
   items: TaskProps[];
 };
 

@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 export const TaskData: Columns = {
   backlog: {
     name: "Backlog",
+    color: "bg-cyan-800",
     items: [
       {
         id: uuidv4(),
@@ -63,6 +64,7 @@ export const TaskData: Columns = {
   },
   todo: {
     name: "A Fazer",
+    color: "bg-yellow-600",
     items: [
       {
         id: uuidv4(),
@@ -121,6 +123,7 @@ export const TaskData: Columns = {
   },
   doing: {
     name: "Em Progresso",
+    color: "bg-orange-700",
     items: [
       {
         id: uuidv4(),
@@ -180,6 +183,7 @@ export const TaskData: Columns = {
   },
   test: {
     name: "Em Teste",
+    color: "bg-purple-900",
     items: [
       {
         id: uuidv4(),
@@ -217,6 +221,7 @@ export const TaskData: Columns = {
   },
   done: {
     name: "Concluído",
+    color: "bg-green-600",
     items: [
       {
         id: uuidv4(),

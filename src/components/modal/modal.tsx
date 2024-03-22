@@ -21,7 +21,6 @@ export const Modal = (props: ModalProps) => {
     hasPadding = true,
     allowCloseOnEscapeAndOutsideClick = true,
     hasForm,
-    formId,
   } = props;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -126,7 +125,6 @@ export const Modal = (props: ModalProps) => {
                   elementAttributes={{
                     className: twMerge(defaultHeaderAndFooterPadding),
                   }}
-                  formId={formId}
                   onClose={handleClose}
                   onConfirm={handleFooterConfirm}
                   isSubmitting={isSubmitting}

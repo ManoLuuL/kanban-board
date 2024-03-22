@@ -1,4 +1,5 @@
-import { TASK_MODAL_SCHEMA } from ".";
+import { ModalDefaultProps } from "../modal";
+import { TASK_MODAL_SCHEMA } from "./consts";
 import { TaskProps } from "@/globals";
 import { z } from "zod";
 
@@ -8,8 +9,7 @@ export type Tag = {
   text: string;
 };
 
-export type TaskModalProps = {
-  onClose: () => void;
+export type TaskModalProps = ModalDefaultProps & {
   handleAddTask(taskData: TaskProps): void;
   taskEdit?: {
     isEdit: boolean;

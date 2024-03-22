@@ -1,4 +1,10 @@
-import { Button, useToast } from "@/components/ui";
+import {
+  Button,
+  ConfirmDeleteModal,
+  TaskCard,
+  TaskModal,
+  useToast,
+} from "../../components";
 import { Columns, TaskProps, onDragEnd, useSearch } from "../../globals";
 import {
   DragDropContext,
@@ -6,10 +12,8 @@ import {
   DropResult,
   Droppable,
 } from "react-beautiful-dnd";
-import { TaskCard, TaskModal } from "../../components";
 import { useEffect, useState } from "react";
 
-import { ConfirmDeleteModal } from "@/components/confirm-delete-modal";
 import { IoAddOutline } from "react-icons/io5";
 import { TaskData } from "@/data";
 import { twMerge } from "tailwind-merge";
@@ -26,7 +30,7 @@ export const Boards = () => {
   const [task, setTask] = useState<TaskProps>();
 
   const handleOnDragEnd = (result: DropResult) =>
-    onDragEnd({ result, columns, setColumns });
+    onDragEnd({ result, columns: filteredColumns, setColumns });
 
   const handleOpen = (columnId: string) => {
     setSelectedColumn(columnId);
@@ -42,16 +46,17 @@ export const Boards = () => {
     setSelectedColumn(columnId);
     setIsEdit(true);
 
-    const editedTask = columns[columnId].items.find(
+    const editedTask = filteredColumns[columnId].items.find(
       (task) => task.id === taskId
     );
+
     if (editedTask) {
       setTask(editedTask);
     }
   };
 
   const handleEditTask = (taskId: string, updatedTaskData: TaskProps) => {
-    const updatedColumns = { ...columns };
+    const updatedColumns = { ...filteredColumns };
     const columnKeys = Object.keys(updatedColumns);
     for (const key of columnKeys) {
       const column = updatedColumns[key];
@@ -75,7 +80,7 @@ export const Boards = () => {
   };
 
   const handleConfirmDelete = (taskId: string) => {
-    const updatedColumns = { ...columns };
+    const updatedColumns = { ...filteredColumns };
     const columnKeys = Object.keys(updatedColumns);
     let taskTitle = "";
     for (const key of columnKeys) {
@@ -92,6 +97,7 @@ export const Boards = () => {
     toast({
       title: `Deletada a Tarefa: ${taskTitle}`,
       description: "Todos os dados removidos com sucesso.",
+      duration: 200,
     });
   };
 
@@ -120,7 +126,12 @@ export const Boards = () => {
                   {...provided.droppableProps}
                   className="flex flex-col flex-grow w-[21rem] rounded-md"
                 >
-                  <div className="bg-gray-800 text-lg rounded-xl p-2 font-bold flex items-center justify-center">
+                  <div
+                    className={twMerge(
+                      "text-lg rounded-xl p-2 mb-4 font-bold flex items-center justify-center",
+                      column.color
+                    )}
+                  >
                     {column.name}
                   </div>
 
@@ -171,7 +182,7 @@ export const Boards = () => {
           handleAddTask={handleAdd}
           taskEdit={{
             isEdit,
-            task,
+            task: task,
             handleEditTask,
           }}
         />

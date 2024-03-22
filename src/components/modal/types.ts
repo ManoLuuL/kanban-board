@@ -26,6 +26,5 @@ export type ModalProps = ModalDefaultProps &
     showFooter?: boolean;
     showHeader?: boolean;
     hasPadding?: boolean;
-    formId?: string;
     hasForm?: boolean;
   };
