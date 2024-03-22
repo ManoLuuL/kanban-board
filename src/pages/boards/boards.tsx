@@ -5,7 +5,13 @@ import {
   TaskModal,
   useToast,
 } from "../../components";
-import { Columns, TaskProps, onDragEnd, useSearch } from "../../globals";
+import {
+  Columns,
+  TOAST_TIME_DURATION,
+  TaskProps,
+  onDragEnd,
+  useSearch,
+} from "../../globals";
 import {
   DragDropContext,
   Draggable,
@@ -97,7 +103,7 @@ export const Boards = () => {
     toast({
       title: `Deletada a Tarefa: ${taskTitle}`,
       description: "Todos os dados removidos com sucesso.",
-      duration: 200,
+      duration: TOAST_TIME_DURATION,
     });
   };
 

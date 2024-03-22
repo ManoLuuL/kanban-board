@@ -33,6 +33,7 @@ import {
 import { CalendarIcon } from "lucide-react";
 import { Modal } from "../modal";
 import { MultiSelect } from "primereact/multiselect";
+import { TOAST_TIME_DURATION } from "@/globals";
 import { format } from "date-fns";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuidV4 } from "uuid";
@@ -59,12 +60,14 @@ export const TaskModal = (props: TaskModalProps) => {
       toast({
         title: `Modificada a Tarefa ${newData.title}`,
         description: `${newData.briefDescription}`,
+        duration: TOAST_TIME_DURATION,
       });
     } else {
       handleAddTask(newData);
       toast({
         title: `Criada a Tarefa ${newData.title}`,
         description: `${newData.briefDescription}`,
+        duration: TOAST_TIME_DURATION,
       });
     }
     onHide();
