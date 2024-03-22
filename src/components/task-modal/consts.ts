@@ -18,6 +18,7 @@ export const TASK_MODAL_INITIAL_DATA: InitialValueDTO = {
   description: "",
   priority: "",
   deadline: "",
+  responsible: "",
   endTask: undefined,
   tags: [] as Tag[],
 };
@@ -54,6 +55,7 @@ export const TASK_MODAL_SCHEMA = z.object({
   }),
   endTask: z.date().optional(),
   deadline: z.string(),
+  responsible: z.string(),
   tags: z
     .array(
       z.object({

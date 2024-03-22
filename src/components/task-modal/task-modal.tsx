@@ -205,7 +205,7 @@ export const TaskModal = (props: TaskModalProps) => {
               render={({ field }) => (
                 <FormItem
                   className={twMerge(
-                    "col-span-6 md:col-span-6",
+                    "col-span-6 ",
                     TASK_MODAL_DEFAULT_LABEL_STYLE
                   )}
                 >
@@ -222,6 +222,47 @@ export const TaskModal = (props: TaskModalProps) => {
                           TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
                       )}
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="responsible"
+              render={({ field }) => (
+                <FormItem
+                  className={twMerge(
+                    "col-span-6",
+                    TASK_MODAL_DEFAULT_LABEL_STYLE
+                  )}
+                >
+                  <FormLabel className="text-gray-50">* Responsavel</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione um responsavel" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="https://res.cloudinary.com/dh4itauoa/image/upload/v1711128266/v9wexpvvvw7mr4pqnv7r.png">
+                          Programador 1
+                        </SelectItem>
+                        <SelectItem value="https://res.cloudinary.com/dh4itauoa/image/upload/v1711128265/ao3decxgikfuyzk3ecyh.png">
+                          Programador 2
+                        </SelectItem>
+                        <SelectItem value="https://res.cloudinary.com/dh4itauoa/image/upload/v1711128203/qrm4ovavbnpgddzoqf9k.png">
+                          Programador 3
+                        </SelectItem>
+                        <SelectItem value="https://res.cloudinary.com/dh4itauoa/image/upload/v1711128513/xi4m2gr7m4h2sn5kjrns.png">
+                          Programador 4
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

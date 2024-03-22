@@ -27,6 +27,7 @@ export type InitialValueDTO = {
   deadline: string;
   endTask?: Date;
   tags: Tag[];
+  responsible: string;
 };
 
 export type TaskModalForm = z.infer<typeof TASK_MODAL_SCHEMA>;

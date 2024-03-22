@@ -1,3 +1,4 @@
+import { Avatar, AvatarImage } from "..";
 import { IoCalendarOutline, IoTimeOutline, IoTrash } from "react-icons/io5";
 
 import { Button } from "../ui/button";
@@ -9,7 +10,15 @@ import { twMerge } from "tailwind-merge";
 export const TaskCard = (props: TaskCardProps) => {
   const { task, provided, onRemove, onEdit } = props;
 
-  const { title, priority, deadline, tags, briefDescription, endTask } = task;
+  const {
+    title,
+    priority,
+    deadline,
+    tags,
+    briefDescription,
+    endTask,
+    responsible,
+  } = task;
 
   const priorityText =
     priority === "high" ? "Alta" : priority === "medium" ? "Média" : "Baixa";
@@ -27,10 +36,15 @@ export const TaskCard = (props: TaskCardProps) => {
       )}
     >
       <div className="w-full flex items-start flex-col gap-2" onClick={onEdit}>
-        <div className="text-center flex justify-center items-center">
-          <span className="text-xl font-semibold text-gray-50 md:text-left text-center select-none">
+        <div className="flex items-center justify-between w-full">
+          <span className="text-xl font-semibold text-gray-50 md:text-left text-center select-none flex-grow">
             {title}
           </span>
+          <div className="md:ml-4 md:self-end hidden md:flex">
+            <Avatar>
+              <AvatarImage src={responsible} alt="responsible" />
+            </Avatar>
+          </div>
         </div>
         <span className="text-sm text-gray-50 my-1 font-normal select-none text-center md:text-left">
           {briefDescription}

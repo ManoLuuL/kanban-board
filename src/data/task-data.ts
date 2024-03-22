@@ -17,6 +17,8 @@ export const TaskData: Columns = {
         deadline: "18:00",
         endTask: new Date(2024, 2, 25),
         tags: [TASK_MODAL_TAG_OPTION[0]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128266/v9wexpvvvw7mr4pqnv7r.png",
       },
       {
         id: uuidv4(),
@@ -27,6 +29,8 @@ export const TaskData: Columns = {
         deadline: "2:00",
         endTask: new Date(2024, 2, 28),
         tags: [TASK_MODAL_TAG_OPTION[1]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128265/ao3decxgikfuyzk3ecyh.png",
       },
       {
         id: uuidv4(),
@@ -37,6 +41,8 @@ export const TaskData: Columns = {
         priority: "low",
         deadline: "00:16",
         tags: [TASK_MODAL_TAG_OPTION[0]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128513/xi4m2gr7m4h2sn5kjrns.png",
       },
       {
         id: uuidv4(),
@@ -48,6 +54,8 @@ export const TaskData: Columns = {
         deadline: "01:30",
         endTask: new Date(2024, 2, 25),
         tags: [TASK_MODAL_TAG_OPTION[0]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128266/v9wexpvvvw7mr4pqnv7r.png",
       },
       {
         id: uuidv4(),
@@ -59,6 +67,8 @@ export const TaskData: Columns = {
         deadline: "01:30",
         endTask: new Date(2024, 2, 25),
         tags: [TASK_MODAL_TAG_OPTION[1]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128203/qrm4ovavbnpgddzoqf9k.png",
       },
     ],
   },
@@ -76,6 +86,8 @@ export const TaskData: Columns = {
         deadline: "02:30",
         endTask: new Date(2024, 2, 28),
         tags: [TASK_MODAL_TAG_OPTION[0]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128265/ao3decxgikfuyzk3ecyh.png",
       },
       {
         id: uuidv4(),
@@ -87,6 +99,8 @@ export const TaskData: Columns = {
         deadline: "02:10",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[1]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128266/v9wexpvvvw7mr4pqnv7r.png",
       },
       {
         id: uuidv4(),
@@ -97,6 +111,8 @@ export const TaskData: Columns = {
         priority: "medium",
         deadline: "03:00",
         tags: [TASK_MODAL_TAG_OPTION[0]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128513/xi4m2gr7m4h2sn5kjrns.png",
       },
       {
         id: uuidv4(),
@@ -107,6 +123,8 @@ export const TaskData: Columns = {
         priority: "high",
         deadline: "01:30",
         tags: [TASK_MODAL_TAG_OPTION[2]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128266/v9wexpvvvw7mr4pqnv7r.png",
       },
       {
         id: uuidv4(),
@@ -118,6 +136,8 @@ export const TaskData: Columns = {
         deadline: "00:50",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[1]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128203/qrm4ovavbnpgddzoqf9k.png",
       },
     ],
   },
@@ -135,6 +155,8 @@ export const TaskData: Columns = {
         deadline: "01:50",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[2]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128265/ao3decxgikfuyzk3ecyh.png",
       },
       {
         id: uuidv4(),
@@ -145,6 +167,8 @@ export const TaskData: Columns = {
         deadline: "02:50",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[3]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128266/v9wexpvvvw7mr4pqnv7r.png",
       },
       {
         id: uuidv4(),
@@ -156,6 +180,8 @@ export const TaskData: Columns = {
         deadline: "01:40",
         endTask: new Date(2024, 3, 5),
         tags: [TASK_MODAL_TAG_OPTION[0]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128513/xi4m2gr7m4h2sn5kjrns.png",
       },
       {
         id: uuidv4(),
@@ -167,6 +193,8 @@ export const TaskData: Columns = {
         deadline: "03:00",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[1]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128266/v9wexpvvvw7mr4pqnv7r.png",
       },
       {
         id: uuidv4(),
@@ -178,6 +206,8 @@ export const TaskData: Columns = {
         deadline: "03:00",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[2]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128203/qrm4ovavbnpgddzoqf9k.png",
       },
     ],
   },
@@ -195,6 +225,8 @@ export const TaskData: Columns = {
         deadline: "04:00",
         endTask: new Date(2024, 2, 24),
         tags: [TASK_MODAL_TAG_OPTION[2]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128513/xi4m2gr7m4h2sn5kjrns.png",
       },
       {
         id: uuidv4(),
@@ -206,6 +238,8 @@ export const TaskData: Columns = {
         deadline: "02:00",
         endTask: new Date(2024, 2, 23),
         tags: [TASK_MODAL_TAG_OPTION[2]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128265/ao3decxgikfuyzk3ecyh.png",
       },
       {
         id: uuidv4(),
@@ -216,6 +250,8 @@ export const TaskData: Columns = {
         priority: "low",
         deadline: "01:30",
         tags: [TASK_MODAL_TAG_OPTION[2]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128513/xi4m2gr7m4h2sn5kjrns.png",
       },
     ],
   },
@@ -232,6 +268,8 @@ export const TaskData: Columns = {
         priority: "medium",
         deadline: "01:30",
         tags: [TASK_MODAL_TAG_OPTION[0]],
+        responsible:
+          "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128266/v9wexpvvvw7mr4pqnv7r.png",
       },
     ],
   },
