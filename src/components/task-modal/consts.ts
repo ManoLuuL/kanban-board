@@ -71,3 +71,41 @@ export const TASK_MODAL_SCHEMA = z.object({
       message: "Máximo de Tags atingido.",
     }),
 });
+
+export const TASK_MODAL_RESPONSIBLE = [
+  {
+    title: "Programador 1",
+    value:
+      "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128266/v9wexpvvvw7mr4pqnv7r.png",
+  },
+  {
+    title: "Programador 2",
+    value:
+      "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128265/ao3decxgikfuyzk3ecyh.png",
+  },
+  {
+    title: "Programador 3",
+    value:
+      "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128203/qrm4ovavbnpgddzoqf9k.png",
+  },
+  {
+    title: "Programador 4",
+    value:
+      "https://res.cloudinary.com/dh4itauoa/image/upload/v1711128513/xi4m2gr7m4h2sn5kjrns.png",
+  },
+];
+
+export const TASK_MODAL_PRIORITY = [
+  {
+    title: "Baixa",
+    value: "low",
+  },
+  {
+    title: "Média",
+    value: "medium",
+  },
+  {
+    title: "Alta",
+    value: "high",
+  },
+];

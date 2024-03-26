@@ -1,6 +1,5 @@
+import { Editor, EditorTextChangeEvent } from "primereact/editor";
 import {
-  Button,
-  Calendar,
   Form,
   FormControl,
   FormField,
@@ -8,17 +7,8 @@ import {
   FormLabel,
   FormMessage,
   Input,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
   useToast,
 } from "../ui";
-import { Editor, EditorTextChangeEvent } from "primereact/editor";
 import { InitialValueDTO, TaskModalForm, TaskModalProps } from "./types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
@@ -26,15 +16,18 @@ import {
   TASK_MODAL_DEFAULT_INPUT_STYLE,
   TASK_MODAL_DEFAULT_LABEL_STYLE,
   TASK_MODAL_INITIAL_DATA,
+  TASK_MODAL_PRIORITY,
+  TASK_MODAL_RESPONSIBLE,
   TASK_MODAL_SCHEMA,
   TASK_MODAL_TAG_OPTION,
 } from "./consts";
 
-import { CalendarIcon } from "lucide-react";
+import { Calendar as CalendarPrime } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
+import { InputText } from "primereact/inputtext";
 import { Modal } from "../modal";
 import { MultiSelect } from "primereact/multiselect";
 import { TOAST_TIME_DURATION } from "@/globals";
-import { format } from "date-fns";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuidV4 } from "uuid";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -99,7 +92,7 @@ export const TaskModal = (props: TaskModalProps) => {
                 >
                   <FormLabel className="text-gray-50">* Titulo</FormLabel>
                   <FormControl>
-                    <Input
+                    <InputText
                       {...field}
                       className={twMerge(
                         TASK_MODAL_DEFAULT_INPUT_STYLE,
@@ -126,7 +119,7 @@ export const TaskModal = (props: TaskModalProps) => {
                     * Breve Descrição
                   </FormLabel>
                   <FormControl>
-                    <Input
+                    <InputText
                       {...field}
                       className={twMerge(
                         TASK_MODAL_DEFAULT_INPUT_STYLE,
@@ -152,21 +145,17 @@ export const TaskModal = (props: TaskModalProps) => {
                 >
                   <FormLabel className="text-gray-50">* Prioridade</FormLabel>
                   <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione uma prioridade" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="low">Baixa</SelectItem>
-                        <SelectItem value="medium">Média</SelectItem>
-                        <SelectItem value="high">Alta</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Dropdown
+                      {...field}
+                      optionLabel="title"
+                      options={TASK_MODAL_PRIORITY}
+                      onChange={(e) => field.onChange(e.value)}
+                      className={twMerge(
+                        TASK_MODAL_DEFAULT_INPUT_STYLE,
+                        form.formState.errors.priority &&
+                          TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
+                      )}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -239,30 +228,17 @@ export const TaskModal = (props: TaskModalProps) => {
                 >
                   <FormLabel className="text-gray-50">* Responsavel</FormLabel>
                   <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione um responsavel" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="https://res.cloudinary.com/dh4itauoa/image/upload/v1711128266/v9wexpvvvw7mr4pqnv7r.png">
-                          Programador 1
-                        </SelectItem>
-                        <SelectItem value="https://res.cloudinary.com/dh4itauoa/image/upload/v1711128265/ao3decxgikfuyzk3ecyh.png">
-                          Programador 2
-                        </SelectItem>
-                        <SelectItem value="https://res.cloudinary.com/dh4itauoa/image/upload/v1711128203/qrm4ovavbnpgddzoqf9k.png">
-                          Programador 3
-                        </SelectItem>
-                        <SelectItem value="https://res.cloudinary.com/dh4itauoa/image/upload/v1711128513/xi4m2gr7m4h2sn5kjrns.png">
-                          Programador 4
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Dropdown
+                      {...field}
+                      optionLabel="title"
+                      options={TASK_MODAL_RESPONSIBLE}
+                      onChange={(e) => field.onChange(e.value)}
+                      className={twMerge(
+                        TASK_MODAL_DEFAULT_INPUT_STYLE,
+                        form.formState.errors.responsible &&
+                          TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
+                      )}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -281,30 +257,18 @@ export const TaskModal = (props: TaskModalProps) => {
                   <FormLabel className="text-gray-50">
                     Data de Finalização
                   </FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"default"}
-                        className={TASK_MODAL_DEFAULT_INPUT_STYLE}
-                      >
-                        <div className="flex justify-between w-full items-center">
-                          {field.value ? (
-                            format(field.value, "PPP")
-                          ) : (
-                            <span>Data de Finalização</span>
-                          )}
-                          <CalendarIcon className="ml-2 h-4 w-4" />
-                        </div>
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                      />
-                    </PopoverContent>
-                  </Popover>
+                  <FormControl>
+                    <CalendarPrime
+                      {...field}
+                      dateFormat="dd/mm/yy"
+                      showIcon
+                      className={twMerge(
+                        TASK_MODAL_DEFAULT_INPUT_STYLE,
+                        form.formState.errors.responsible &&
+                          TASK_MODAL_DEFAULT_ERROR_INPUT_STYLE
+                      )}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
